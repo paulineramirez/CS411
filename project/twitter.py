@@ -21,6 +21,18 @@ for happy_tweet in ts.search_tweets_iterable(search_order):
 	print('@%s tweeted: %s' % ( happy_tweet['user']['screen_name'], happy_tweet['text']))
 
 '''
+tweetarray = []
+counter = 0
+for happy_tweet in ts.search_tweets_iterable(search_order):
+        if counter < 10:
+                tweetarray.append((happy_tweet['user']['screen_name'], happy_tweet['text']))
+                counter += 1
+        else:
+                break
+print(tweetarray)
+'''
+
+'''
 consumer_key = "BkczwDXiYQWAf2klUbnv2hEO0"
 consumer_secret = "JZibmuDUVcQ6utlG9kcoujtbJKHByoC2uM26muO9dpG1K49Hnm"
 access_token = "1051442228-Hrwir9aT8K8kFFg8zfiV9VfCW2QAEk47W5xZrRm"
