@@ -4,6 +4,9 @@ import gettweets
 urls = (
     '/', 'Tweets'
     ,'/search', 'Search'
+    ,'/FAQ' ,'FAQ'
+    ,'/about','About'
+    ,'/startups','Startups'
     )
 app = web.application(urls, globals())
 
@@ -15,22 +18,42 @@ class Tweets(object):
         return render.main() 
 
 
-    def POST(self):
-        form = web.input(tweets="testingthisthing")
-        global searchQuery
-        searchQuery = str(form.tweets)
-        raise web.redirect('/search') 
-     
+    def POST(self): 
+        form = web.input()
+        
+        if form.keys()[0] == "FAQ":
+                raise web.redirect('/FAQ')
+        if form.keys()[0] == "tweets":
+            if len(form.tweets) == 0:
+                return "Enter a search > 0 characters"
+            global searchQuery
+            searchQuery = str(form.tweets)
+            raise web.redirect('/search') 
+        if form.keys()[0] == "startups":
+            raise web.redirect('/startups')
+        if form.keys()[0] == "home":
+            raise web.redirect('/')
+        if form.keys()[0] == "about":
+            raise web.redirect('/about')
 class Search:
     def GET(self):
         global searchQuery    
 
         ts = gettweets.getTweets(searchQuery)
-        ts = ts[0]
+        ts = ts
         return render.index(ts = ts)
        
+class FAQ:
+    def GET(self):
+        return render.FAQ()
 
+class About:
+    def GET(self):
+        return render.about()
 
+class Startups:
+    def GET(self):
+        return render.startups()
 if __name__ == "__main__":
     app.run()
 
