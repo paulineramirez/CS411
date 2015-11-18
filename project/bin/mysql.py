@@ -67,15 +67,24 @@ def DBCreateTable():
 
         else:
             print("OK")
-
     cursor.close()
 
 def DBInsert(table, data):
     cursor = cnx.cursor()
-    cursor.execute(table, data):
+    try:
+        cursor.execute(table, data):
+    except mysql.connector.Error as err:
+        print(err.msg)
+    else:
+        print("Successfully inserted")
     cnx.commit()
 
 def DBQuery(query, info):
     cursor = cnx.cursor()
-    cursor.execute(query, info)
+    try:
+     cursor.execute(query, info)
+    except mysql.connector.Error as err:
+        print(err.msg)
+    else:
+        print("Successfully queried")
     cursor.close()
