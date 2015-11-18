@@ -7,6 +7,7 @@ urls = (
     ,'/FAQ' ,'FAQ'
     ,'/about','About'
     ,'/startups','Startups'
+    , '/applyforfunding', 'RequestFunding'
     )
 app = web.application(urls, globals())
 
@@ -20,7 +21,6 @@ class Tweets(object):
 
     def POST(self): 
         form = web.input()
-        
         if form.keys()[0] == "FAQ":
                 raise web.redirect('/FAQ')
         if form.keys()[0] == "tweets":
@@ -35,6 +35,11 @@ class Tweets(object):
             raise web.redirect('/')
         if form.keys()[0] == "about":
             raise web.redirect('/about')
+        if form.keys()[0] == "signup":
+            raise web.redirect('/signup')
+        if form.keys()[0] == "funding":
+            raise web.redirect('/applyforfunding')
+
 class Search:
     def GET(self):
         global searchQuery    
@@ -54,8 +59,15 @@ class About:
 class Startups:
     def GET(self):
         return render.startups()
+
+class RequestFunding:
+    def GET(self):
+        return render.applyforfunding()
+
 if __name__ == "__main__":
     app.run()
+
+
 
 
 '''
