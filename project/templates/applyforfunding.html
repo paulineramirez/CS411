@@ -7,16 +7,73 @@ Apply for funding on this page
 
 
 <form id="login_form" action="#" method="POST" enctype="multipart/form-data">
+	<!-- company name -->
 	<div class="row">
-		<label for="text">Username:</label><br />
-		<input id="email" class="input" name="email" type="text" value="" size="30" /><br />
-	</div>
-	<div class="row">
-		<label for="password">Password:</label><br />
-		<input id="password" class="input" name="password" type="text" value="" size="30" /><br />
+		<label for="text">Enter your company name:</label><br />
+		<input id="companyname" class="input" name="companyname" type="text" value="" size="30" maxlength="100"/><br/>
 	</div>
 
-	<input id="submit_button" type="submit" value="Log In" />
+	<!-- company description -->
+	<div class="row">
+		<label for="text">What does your company do?</label><br />
+		<input id="desc" class="input" name="desc" type="text" value="" size="30" 
+		maxlength="3000"/><br/>
+	</div>
+
+	<!-- money -->
+	<div class="row">
+		<label for="text">How much money does your company need/?</label><br />
+		<input id="money" class="input" name="money" type="text" value="" size="30" 
+		maxlength="100"/><br/>
+	</div>
+
+
+	<!-- contact name  -->
+	<div class="row">
+		<label for="text">Who can someone contact to fund you?</label><br />
+		<input id="contact_name" class="input" name="contact_name" type="text" value="" size="30" maxlength="100"/><br/>
+	</div>
+
+	<!-- contact name  -->
+	<div class="row">
+		<label for="text">Who can someone contact to fund you?</label><br />
+		<input id="contact_name" class="input" name="contact_name" type="text" value="" size="30" maxlength="100"/><br/>
+	</div>
+
+	<!-- contact email -->
+	<div class="row">
+		<label for="text">What is your email address?</label><br />
+		<input id="contact_email" class="input" name="contact_email" type="text" value="" size="30" maxlength="100"/><br/>
+	</div>
+
+	<!-- contact phone -->
+	<div class="row">
+		<label for="text">What is your phone number?</label><br />
+		<input id="contact_phone" class="input" name="contact_phone" type="text" value="" size="30" maxlength="100"/><br/>
+	</div>
+
+	<!-- stage of startups -->
+	<form action="/">
+  		<select name="startup_type">
+		    <option value="seed">Start-Up/Seed</option>
+		    <option value="early">Early Stages</option>
+		    <option value="expansion">Expansion</option>
+		    <option value="later">Later Stage</option>
+  		</select>
+  		<br><br>
+  
+		</form>
+
+<!-- contact phone -->
+	<div class="row">
+		<label for="text">Company website:</label><br />
+		<input id="website" class="input" name="website" type="text" value="" size="30" maxlength="100"/><br/>
+	</div>
+
+
+
+
+	<input id="submit_button" type="submit" value="Apply for Funding" />
 </form>			
 
 </body>
