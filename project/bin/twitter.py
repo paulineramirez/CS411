@@ -68,7 +68,7 @@ class Tweets(object):
             raise web.redirect('/signup')
         if form.keys()[0] == "funding":
             raise web.redirect('/applyforfunding')
-
+        return form
 class Search:
     def GET(self):
         global searchQuery    
@@ -104,6 +104,9 @@ class RequestFunding:
 
 
 
+    def POST(self):
+        form = web.input()
+        return form 
 if __name__ == "__main__":
     app.run()
 
