@@ -1,9 +1,9 @@
-import mysql.connector
+import mysql
 
 users = {
         'user': 'mysql_user',
         'password': 'mysql_password',
-        'host': '127.0.0.1'
+        'host': '127.0.0.1',
         'database': 'riskitbiscuit'
         }
 TABLES = {}
@@ -38,9 +38,9 @@ def DBconnect(config):
     try:
          cnx = mysql.connector.connect(**config)
     except mysql.connector.Error as err:
-        if err.errno = errorcode.ER_ACCESS_DENIED:
+        if err.errno == errorcode.ER_ACCESS_DENIED:
             print("Something is wrong with your username/password")
-        elif err.errn= errorcode.ER_BAD_DB_ERROR:
+        elif err.errn == errorcode.ER_BAD_DB_ERROR:
             print("DB does not exist")
         else:
             print(err)
@@ -56,7 +56,7 @@ def DBCreateTable():
     cursor= cnx.cursor()
     for table in TABLES.iteritems():
         try:
-            print("Creating a table {}: ".format(table), end='')
+            #print("Creating a table {}: ".format(table), end='')
             cursor.execute(table)
 
         except mysql.connector.Error as err:
@@ -72,7 +72,7 @@ def DBCreateTable():
 
 def DBInsert(table, data):
     cursor = cnx.cursor()
-    cursor.execute(table, data):
+    cursor.execute(table, data)
     cnx.commit()
 
 def DBQuery(query, info):

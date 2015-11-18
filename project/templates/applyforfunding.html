@@ -1,3 +1,5 @@
+$def with (f)
+
 <html>
 <head>Request Funding
 	<title> Apply for funding </title>
@@ -5,22 +7,27 @@
 <body> 
 Apply for funding on this page
 
+<br>
+<h1> Register your startup </h1>
+	<form method="POST">
+		$:f.render()
+	</form>
 
+<!--
 <form id="login_form" action="#" method="POST" enctype="multipart/form-data">
-	<!-- company name -->
+	
 	<div class="row">
 		<label for="text">Enter your company name:</label><br />
 		<input id="companyname" class="input" name="companyname" type="text" value="" size="30" maxlength="100"/><br/>
 	</div>
 
-	<!-- company description -->
 	<div class="row">
 		<label for="text">What does your company do?</label><br />
 		<input id="desc" class="input" name="desc" type="text" value="" size="30" 
 		maxlength="3000"/><br/>
 	</div>
 
-	<!-- money -->
+	
 	<div class="row">
 		<label for="text">How much money does your company need/?</label><br />
 		<input id="money" class="input" name="money" type="text" value="" size="30" 
@@ -28,31 +35,31 @@ Apply for funding on this page
 	</div>
 
 
-	<!-- contact name  -->
+	
 	<div class="row">
 		<label for="text">Who can someone contact to fund you?</label><br />
 		<input id="contact_name" class="input" name="contact_name" type="text" value="" size="30" maxlength="100"/><br/>
 	</div>
 
-	<!-- contact name  -->
+	
 	<div class="row">
 		<label for="text">Who can someone contact to fund you?</label><br />
 		<input id="contact_name" class="input" name="contact_name" type="text" value="" size="30" maxlength="100"/><br/>
 	</div>
 
-	<!-- contact email -->
+	
 	<div class="row">
 		<label for="text">What is your email address?</label><br />
 		<input id="contact_email" class="input" name="contact_email" type="text" value="" size="30" maxlength="100"/><br/>
 	</div>
 
-	<!-- contact phone -->
+	
 	<div class="row">
 		<label for="text">What is your phone number?</label><br />
 		<input id="contact_phone" class="input" name="contact_phone" type="text" value="" size="30" maxlength="100"/><br/>
 	</div>
 
-	<!-- stage of startups -->
+	
 	<form action="/">
   		<select name="startup_type">
 		    <option value="seed">Start-Up/Seed</option>
@@ -64,7 +71,7 @@ Apply for funding on this page
   
 		</form>
 
-<!-- contact phone -->
+
 	<div class="row">
 		<label for="text">Company website:</label><br />
 		<input id="website" class="input" name="website" type="text" value="" size="30" maxlength="100"/><br/>
@@ -74,7 +81,8 @@ Apply for funding on this page
 
 
 	<input id="submit_button" type="submit" value="Apply for Funding" />
-</form>			
+</form>	
+-->		
 
 </body>
 </html>
