@@ -1,4 +1,4 @@
-import mysql.connector
+import mysql
 
 users = {
         'user': 'mysql_user',
@@ -80,6 +80,9 @@ def DBInsert(table, data):
     cnx.commit()
 
 def DBQuery(query, info):
+    #pass in a query into the DB in the form 
+    #SELECT FROM riskitbiscuit WHERE startup=$s
+    #should be called when we make a get request to the startup pages in main possibly add row for # of twitter followers and then get max
     cursor = cnx.cursor()
     try:
      cursor.execute(query, info)
