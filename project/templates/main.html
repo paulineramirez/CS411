@@ -4,16 +4,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>API test</title>
+	  <title>API test</title>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 
 <h1> Search for local startup trends.... </h1>
 
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="about">About</a></li>
+        <li><a href="FAQ"> FAQ </a></li>
+        <li><a href="startups">Startups</a></li> 
+        <li><a href="applyforfunding">Apply for Funding</a></li> 
+        <li> <font color="gray">What do you want to search for?</font>
+        	<form action ="/" method="POST">
+					 <input type="text" name="tweets">
+				<input type="submit">
+			</form> </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!--
 <form action ="/" method="POST">
 	What do you want to search for? <input type="text" name="tweets">
 	<br/>
 	<input type="submit">
 </form>
+
 <form action="/" method="POST">
 	<input type="submit" value="FAQ" name="FAQ">
 	
@@ -32,6 +59,8 @@
 <form action="/" method="POST">
 	<input type="submit" value="Apply For Funding" name="funding">
 </form>
+
+-->
 
 
 </body>

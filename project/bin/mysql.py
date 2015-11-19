@@ -71,16 +71,14 @@ def DBCreateTable():
 
 def DBInsert(table, data):
     cursor = cnx.cursor()
-<<<<<<< HEAD
     cursor.execute(table, data)
-=======
+
     try:
-        cursor.execute(table, data):
+        cursor.execute(table, data)
     except mysql.connector.Error as err:
         print(err.msg)
     else:
         print("Successfully inserted")
->>>>>>> origin/master
     cnx.commit()
 
 def DBQuery(query, info):
