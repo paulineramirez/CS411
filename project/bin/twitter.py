@@ -19,6 +19,8 @@ app = web.application(urls, globals())
 render = web.template.render('templates/')
 searchQuery = "hasnotchanged"
 
+#David's Code
+#DB = web.database(dbn='mysql', user='mysql_user', pw='mysql_password', db='riskitbiscuit')
 
 
 # Apply for funding form
@@ -86,6 +88,9 @@ class About:
 
 class Startups:
     def GET(self):
+        #David's Code
+        #startupsTable = DB.select('startups') #startupsDB is, from the DB object (which is selecting, from the database it's connected to, the table 'startups'), the actual 'startups' table being passed in as an argument to rendering, 
+        #return render.startups(startupsTable) #that here, allows the table to be called using python code from the startups HTML template
         return render.startups()
 
 class RequestFunding:
