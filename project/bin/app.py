@@ -1,5 +1,10 @@
 import web
 import gettweets
+from web import form
+import json
+import mysql
+
+# Pages
 
 urls = (
     '/', 'Tweets'
@@ -13,6 +18,32 @@ app = web.application(urls, globals())
 
 render = web.template.render('templates/')
 searchQuery = "hasnotchanged"
+
+#David's Code
+#DB = web.database(dbn='mysql', user='mysql_user', pw='mysql_password', db='riskitbiscuit')
+
+
+# Apply for funding form
+vemail = form.regexp(r".*@.*", "Must be a valid email address")
+
+# the form itself 
+funding_form = form.Form(
+    form.Textbox("company_name", description="Enter your company name:"),
+    form.Textbox("company-desc", description="What does your company do?"),
+    form.Textbox("money", description="How much money does your company need?"),
+    form.Textbox("contact_name", description="Contact name:"),
+    form.Textbox("contact_email", vemail, description="What is your email?"),
+    form.Textbox("contact_phone", description="What is your phone number?"),
+    form.Dropdown("type", \
+        [('type1', "early start up/seed"), \
+         ('type2', "early stages"), \
+         ('type3', "expansion"), \
+         ('type4', "later stages") \
+         ]),
+    form.Textbox("website", description="Company website:"),
+    form.Textbox("startup_twitter", description="Company twitter:"),
+    form.Button("submit", type="submit", description="Register your company")
+    )
 
 class Tweets(object):
     def GET(self):
@@ -40,12 +71,13 @@ class Tweets(object):
         if form.keys()[0] == "funding":
             raise web.redirect('/applyforfunding')
         return form
+
+
 class Search:
     def GET(self):
         global searchQuery    
 
         ts = gettweets.getTweets(searchQuery)
-        ts = ts
         return render.index(ts = ts)
        
 class FAQ:
@@ -58,15 +90,22 @@ class About:
 
 class Startups:
     def GET(self):
+        #David's Code
+        #startupsTable = DB.select('startups') #startupsDB is, from the DB object (which is selecting, from the database it's connected to, the table 'startups'), the actual 'startups' table being passed in as an argument to rendering, 
+        #return render.startups(startupsTable) #that here, allows the table to be called using python code from the startups HTML template
         return render.startups()
 
 class RequestFunding:
     def GET(self):
-        return render.applyforfunding()
+        f = funding_form()
+        return render.applyforfunding(f = f)
 
     def POST(self):
-        form = web.input()
-        return form 
+        f = funding_form()
+        if f.validates():
+            return f
+
+
 if __name__ == "__main__":
     app.run()
 
