@@ -101,17 +101,12 @@ class RequestFunding:
     def POST(self):
         f = funding_form()
         if f.validates():
-            return f
+            return f.d
+        
 
 
 
 
-
-
-
-    def POST(self):
-        form = web.input()
-        return form 
 if __name__ == "__main__":
     app.run()
 
