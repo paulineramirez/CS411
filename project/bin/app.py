@@ -110,7 +110,7 @@ class RequestFunding:
             config.DB.insert('startups', startup_url=f.d.website, startup_twitter=f.d.startup_twitter,startup_money=f.d.money, startup_name=f.d.company_name,contact_name=f.d.contact_name,contact_email=f.d.contact_email,contact_phone=f.d.contact_phone,startup_stage=f.d.type,startup_description=f.d.company_desc)
             table =  config.DB.select('startups')  
       
-            
+            sql.DBclose() 
             return f.d
         
 
