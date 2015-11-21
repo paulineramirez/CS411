@@ -16,14 +16,14 @@ TABLES['users'] = (
 TABLES['startups'] = (
         "CREATE TABLE `startups` ("
         " `startup_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY"
-        " `startup_name` varchar(255) NOT NULL"
+        " `startup_url` varchar(255) NOT NULL"
+        " `startup_twitter` varchar(255) NOT NULL"
         " `startup_money` INT NOT NULL"
+        " `startup_name` varchar(255) NOT NULL"
         " `contact_name` varchar(255) NOT NULL"
         " `contact_email` varchar(255) NOT NULL"
         " `contact_phone` varchar(255) NOT NULL"
-        " `startup_stage` INT NOT NULL"
-        " `startup_url` varchar(255) NOT NULL"
-        " `startup_twitter` varchar(255) NOT NULL"
+        " `startup_stage` INT NOT NULL" 
         " `startup_description` varchar(4095) NOT NULL"
         )
 
@@ -46,7 +46,15 @@ def DBconnect(config):
             print(err)
     else:
         cnx.close()
-
+def DBCreate():
+    global cnx
+    cursor = cnx.cursor
+    try:
+        cursor.execute("Create database riskitbiscuit")
+    except mysql.connector.Error as err:
+        print(err.msg)
+    else:
+        print("ok")
 def DBclose():
     global cnx
     cnx.close()

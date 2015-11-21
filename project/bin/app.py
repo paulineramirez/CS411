@@ -2,8 +2,8 @@ import web
 import gettweets
 from web import form
 import json
-import mysql
-
+import sql
+import config
 # Pages
 
 urls = (
@@ -29,7 +29,7 @@ vemail = form.regexp(r".*@.*", "Must be a valid email address")
 # the form itself 
 funding_form = form.Form(
     form.Textbox("company_name", description="Enter your company name:"),
-    form.Textbox("company-desc", description="What does your company do?"),
+    form.Textbox("company_desc", description="What does your company do?"),
     form.Textbox("money", description="How much money does your company need?"),
     form.Textbox("contact_name", description="Contact name:"),
     form.Textbox("contact_email", vemail, description="What is your email?"),
@@ -103,15 +103,18 @@ class RequestFunding:
     def POST(self):
         f = funding_form()
         if f.validates():
+            sql.DBConnect(sql.users)
+            sql.DBCreate('riskitbiscuit')
+            sql.DBCreateTable() 
+
+            config.DB.insert('startups', startup_url=f.d.website, startup_twitter=f.d.startup_twitter,startup_money=f.d.money, startup_name=f.d.company_name,contact_name=f.d.contact_name,contact_email=f.d.contact_email,contact_phone=f.d.contact_phone,startup_stage=f.d.type,startup_description=f.d.company_desc)
+            table =  config.DB.select('startups')  
+      
+            
             return f.d
         
 
 
-<<<<<<< HEAD:project/bin/twitter.py
-
-
-=======
->>>>>>> 473a32e7a07883c36cce4ae02e691282f3be1061:project/bin/app.py
 if __name__ == "__main__":
     app.run()
 
