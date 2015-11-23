@@ -35,10 +35,10 @@ funding_form = form.Form(
     form.Textbox("contact_email", vemail, description="What is your email?"),
     form.Textbox("contact_phone", description="What is your phone number?"),
     form.Dropdown("type", \
-        [('type1', "early start up/seed"), \
-         ('type2', "early stages"), \
-         ('type3', "expansion"), \
-         ('type4', "later stages") \
+        [(1, "early start up/seed"), \
+         (2, "early stages"), \
+         (3, "expansion"), \
+         (4, "later stages") \
          ]),
     form.Textbox("website", description="Company website:"),
     form.Textbox("startup_twitter", description="Company twitter:"),
