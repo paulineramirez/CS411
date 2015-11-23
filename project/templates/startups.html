@@ -1,3 +1,4 @@
+$def with (startupsTable)
 <html>
 <head>
 	<title>Startups</title>
@@ -9,15 +10,11 @@
 </head>
 <body>
 	we wil put starutps here or something idk
-	<!--David's Code
-	$def with (startupsTable)
+	<!--David's Code-->
 	<ul>
 	$for row in startupsTable:
-		<li id="t$row.id">$row.startup_name</li>
-		<li id="t$row.id">$row.startup_money</li>
-		<li id="t$row.id">$row.startup_url</li>
-		<li id="t$row.id">$row.startup_stage</li>
-		<li id="t$row.id">$startup_description</li>
+	
+	<li id ="t$row.startup_id">$row.startup_id</li>
 	</ul>
-	-->
+	<!---->
 </body>

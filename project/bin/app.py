@@ -91,9 +91,9 @@ class About:
 class Startups:
     def GET(self):
         #David's Code
-        #startupsTable = DB.select('startups') #startupsDB is, from the DB object (which is selecting, from the database it's connected to, the table 'startups'), the actual 'startups' table being passed in as an argument to rendering, 
-        #return render.startups(startupsTable) #that here, allows the table to be called using python code from the startups HTML template
-        return render.startups()
+        startupsTable = config.DB.select('startups').list()#startupsDB is, from the DB object (which is selecting, from the database it's connected to, the table 'startups'), the actual 'startups' table being passed in as an argument to rendering, 
+        return render.startups(startupsTable = startupsTable) #that here, allows the table to be called using python code from the startups HTML template
+        #return render.startups()
 
 class RequestFunding:
     def GET(self):
@@ -111,7 +111,7 @@ class RequestFunding:
             table =  config.DB.select('startups')  
       
             sql.DBclose() 
-            return f.d
+            return render.redirect() 
         
 
 
