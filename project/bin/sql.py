@@ -1,4 +1,5 @@
-import mysql
+import MySQLdb
+
 
 users = {
         'user': 'mysql_user',
@@ -7,24 +8,26 @@ users = {
         'database': 'riskitbiscuit'
         }
 TABLES = {}
-TABLES['users'] = (
-        "CREATE TABLE `users` ("
-        " `user_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY"
-        " `username` varchar(255) NOT NULL"
-        " `password` password(255) NOT NULL"
-        )
+#TABLES['users'] = (
+#        "CREATE TABLE `users` ("
+#        " `user_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,"
+#        " `username` varchar(255) NOT NULL,"
+#        " `password` password(255) NOT NULL)"
+
+#      )
 TABLES['startups'] = (
-        "CREATE TABLE `startups` ("
-        " `startup_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY"
-        " `startup_url` varchar(255) NOT NULL"
-        " `startup_twitter` varchar(255) NOT NULL"
-        " `startup_money` INT NOT NULL"
-        " `startup_name` varchar(255) NOT NULL"
-        " `contact_name` varchar(255) NOT NULL"
-        " `contact_email` varchar(255) NOT NULL"
-        " `contact_phone` varchar(255) NOT NULL"
-        " `startup_stage` INT NOT NULL" 
-        " `startup_description` varchar(4095) NOT NULL"
+        "CREATE TABLE startups ("
+        " startup_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,"
+        " startup_url varchar(255) NOT NULL,"
+        " startup_twitter varchar(255) NOT NULL,"
+        " startup_money INT NOT NULL,"
+        " startup_name varchar(255) NOT NULL,"
+        " contact_name varchar(255) NOT NULL,"
+        " contact_email varchar(255) NOT NULL,"
+        " contact_phone varchar(255) NOT NULL,"
+        " startup_stage INT NOT NULL," 
+        " startup_description varchar(4095) NOT NULL)"
+        
         )
 
 add_startupInfo = ("INSERT INTO startups "
@@ -33,26 +36,21 @@ add_startupInfo = ("INSERT INTO startups "
 
 
 global cnx
-def DBconnect(config):
+def DBConnect(config):
     global cnx
     try:
-         cnx = mysql.connector.connect(**config)
-    except mysql.connector.Error as err:
-        if err.errno == errorcode.ER_ACCESS_DENIED:
-            print("Something is wrong with your username/password")
-        elif err.errn == errorcode.ER_BAD_DB_ERROR:
-            print("DB does not exist")
-        else:
-            print(err)
-    else:
-        cnx.close()
-def DBCreate():
+         cnx = MySQLdb.connect(host='127.0.0.1',user='mysql_user',passwd='mysql_password')
+    except MySQLdb.Error,e:
+        print "MYsql error: [%d]: %s" % (e.args[0], e.args[1])
+def DBCreate(dbname):
     global cnx
-    cursor = cnx.cursor
+    cursor = cnx.cursor()
     try:
-        cursor.execute("Create database riskitbiscuit")
-    except mysql.connector.Error as err:
-        print(err.msg)
+        cursor.execute("Create database " + dbname)
+        cursor.close()
+    except MySQLdb.Error,e:
+        print "error in creating db"
+        print "MYsql error: [%d]: %s" % (e.args[0], e.args[1])
     else:
         print("ok")
 def DBclose():
@@ -62,17 +60,16 @@ def DBclose():
 
 def DBCreateTable():
     cursor= cnx.cursor()
+    cursor.execute("USE riskitbiscuit")
     for table in TABLES.iteritems():
         try:
-            #print("Creating a table {}: ".format(table), end='')
-            cursor.execute(table)
+            tablename,query = table
+            print("Creating a table {}: " + query)
+            cursor.execute(query)
 
-        except mysql.connector.Error as err:
-            if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
-                print("Table already exists")
-            else:
-                print(err.msg)
 
+        except MySQLdb.Error,e:
+            print ("MYsql error:",e )
         else:
             print("OK")
     cursor.close()
