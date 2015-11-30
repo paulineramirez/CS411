@@ -53,26 +53,12 @@ class Tweets(object):
 
     def POST(self): 
         form = web.input()
-        if form.keys()[0] == "FAQ":
-                raise web.redirect('/FAQ')
         if form.keys()[0] == "tweets":
             if len(form.tweets) == 0:
                 return "Enter a search > 0 characters"
             global searchQuery
             searchQuery = str(form.tweets)
             raise web.redirect('/search') 
-        if form.keys()[0] == "startups":
-            raise web.redirect('/startups')
-        if form.keys()[0] == "home":
-            raise web.redirect('/')
-        if form.keys()[0] == "about":
-            raise web.redirect('/about')
-        if form.keys()[0] == "signup":
-            raise web.redirect('/signup')
-        if form.keys()[0] == "funding":
-            raise web.redirect('/applyforfunding')
-        return form
-
 
 class Search:
     def GET(self):

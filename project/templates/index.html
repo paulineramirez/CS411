@@ -1,13 +1,12 @@
 $def with (ts)
-<html>
-	<head>
-		<title>testing</title>
-	</head>
-<body>
+$var title: Search results...
 	
 $if (ts):
-	Tweets: $ts	
+	<h2>Tweets:</h2>
+       	</br>	
+	<ul>
+	$for row in ts:
+	<li>$row</li>	
+	</ul>
 $else:
-	I actually dont know what this does but im testint
-</body>
-</html>
+	You shouldn't see this
