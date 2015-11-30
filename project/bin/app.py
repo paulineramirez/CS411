@@ -3,6 +3,7 @@ import gettweets
 from web import form
 import json
 import sql
+import MySQLdb
 import config
 # Pages
 
@@ -98,7 +99,7 @@ class Startups:
 class RequestFunding:
     def GET(self):
         f = funding_form()
-        return render.applyforfunding(f = f)
+        return render.applyforfunding(f = f, dup = False)
 
     def POST(self):
         f = funding_form()
@@ -106,7 +107,14 @@ class RequestFunding:
             sql.DBConnect(sql.users)
             sql.DBCreate('riskitbiscuit')
             sql.DBCreateTable() 
-
+            
+            try:
+                config.DB.select('startups', where="startup_name = "+"'"+f.d.company_name+"'")
+            except MySQLdb.Error, e:
+                print("MYSql Error: ",e)
+                pass
+            else:
+                return render.applyforfunding(f = f, dup = True);
             config.DB.insert('startups', startup_url=f.d.website, startup_twitter=f.d.startup_twitter,startup_money=f.d.money, startup_name=f.d.company_name,contact_name=f.d.contact_name,contact_email=f.d.contact_email,contact_phone=f.d.contact_phone,startup_stage=f.d.type,startup_description=f.d.company_desc)
             table =  config.DB.select('startups')  
       

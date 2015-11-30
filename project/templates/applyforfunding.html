@@ -1,8 +1,10 @@
-$def with (f)
+$def with (f, dup)
 
 $var title: Apply for funding on this page.
 
 <h1> Register your startup </h1>
+	$if (dup):
+		<h1>Your startup already exists</h1>
 	<form method="POST">
 		$:f.render()
 	</form>
