@@ -94,12 +94,13 @@ class RequestFunding:
             sql.DBCreate('riskitbiscuit')
             sql.DBCreateTable() 
             
-            try:
-                config.DB.select('startups', where="startup_name = "+"'"+f.d.company_name+"'")
-            except MySQLdb.Error, e:
-                print("MYSql Error: ",e)
-                pass
-            else:
+            x = config.DB.select('startups', where="startup_name = "+"'"+f.d.company_name+"'")
+            print(x.list())
+#            except MySQLdb.Error, e:
+#                print("MYSql Error: ",e)
+#                pass
+#            else:
+            if len(x) != 0:
                 return render.applyforfunding(f = f, dup = True);
             config.DB.insert('startups', startup_url=f.d.website, startup_twitter=f.d.startup_twitter,startup_money=f.d.money, startup_name=f.d.company_name,contact_name=f.d.contact_name,contact_email=f.d.contact_email,contact_phone=f.d.contact_phone,startup_stage=f.d.type,startup_description=f.d.company_desc)
             table =  config.DB.select('startups')  
