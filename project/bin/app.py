@@ -31,12 +31,12 @@ funding_form = form.Form(
     form.Textbox("contact_name", description="Contact name:"),
     form.Textbox("contact_email", vemail, description="What is your email?"),
     form.Textbox("contact_phone", description="What is your phone number?"),
-    form.Dropdown("Startup Stage", \
+    form.Dropdown("type", \
         [(1, "early start up/seed"), \
          (2, "early stages"), \
          (3, "expansion"), \
          (4, "later stages") \
-         ]),
+         ], description ="What is the stage of your startup"),
     form.Textbox("website", description="Company website:"),
     form.Textbox("startup_twitter", description="Company twitter:"),
     form.Textarea("company_desc",size="40",maxlength="4000", description="What does your company do?",class_="form-group"),
