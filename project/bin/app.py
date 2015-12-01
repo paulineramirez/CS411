@@ -29,8 +29,8 @@ vemail = form.regexp(r".*@.*", "Must be a valid email address")
 
 # the form itself 
 funding_form = form.Form(
-    form.Textbox("company_name", description="Enter your company name:"),
-    form.Textbox("company_desc", description="What does your company do?"),
+    form.Textbox("company_name", description="Enter your company name:", class_="form-group"),
+    form.Textbox("company_desc", description="What does your company do?",class_="form-group"),
     form.Textbox("money", description="How much money does your company need?"),
     form.Textbox("contact_name", description="Contact name:"),
     form.Textbox("contact_email", vemail, description="What is your email?"),
