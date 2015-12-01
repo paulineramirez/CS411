@@ -1,4 +1,4 @@
-$def with (startupsTable, numPages)
+$def with (startupsTable, numPages, query)
 
 $def startup_item(name, description, link):
 	<a href = "$link">
@@ -64,6 +64,11 @@ $var title: Startups on our site
 .cssPagination .pages > :last-child,
 .cssPagination .pages > .page:target {display: block;}
 </style>
+
+$if query != "hasnotchangedlolol":
+	<h1>You searched for: $query</h1>
+	<p>Your search returned $len(startupsTable) results.</p>
+	
 $if numPages == 0:
 	$:table(startupsTable)
 $else:

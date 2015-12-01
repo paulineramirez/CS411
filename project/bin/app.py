@@ -19,7 +19,7 @@ urls = (
 app = web.application(urls, globals())
 
 render = web.template.render('templates/', base = 'layout')
-searchQuery = "hasnotchanged"
+searchQuery = "hasnotchangedlolol"
 
 # Apply for funding form
 vemail = form.regexp(r".*@.*", "Must be a valid email address")
@@ -43,19 +43,29 @@ funding_form = form.Form(
     form.Button("submit", type="submit", description="Register your company")
     )
 
+'''
 class Tweets(object):
-    def GET(self):
-        return render.main() 
-
-
-    def POST(self): 
-        form = web.input()
-        if form.keys()[0] == "tweets":
-            if len(form.tweets) == 0:
-                return "Enter a search > 0 characters"
-            global searchQuery
-            searchQuery = str(form.tweets)
-            raise web.redirect('/search') 
+	def GET(self):
+                return render.main() 
+	def POST(self): 
+		form = web.input()
+		if form.keys()[0] == "tweets":
+			if len(form.tweets) == 0:
+				return "Enter a search > 0 characters"
+			global searchQuery
+			searchQuery = str(form.tweets)
+			raise web.redirect('/search') '''
+class Bar(object):
+	def GET(self):
+		return render.main() 
+	def POST(self): 
+		form = web.input()
+		if form.keys()[0] == "bar":
+			if len(form.bar) == 0:
+				return "Enter a search with something!"
+			global searchQuery
+			searchQuery = str(form.bar)
+			raise web.redirect('/startups')
 
 class Search:
     def GET(self):
@@ -73,13 +83,26 @@ class About:
         return render.about()
 
 class Startups:
-    def GET(self):
-        startupsTable = config.DB.select('startups').list()
-        if len(startupsTable) > 9:
-            totalnumpages = math.ceil((float(len(startupsTable)) / float(9)))
-            return render.startups(startupsTable = startupsTable, numPages = int(totalnumpages))
-        else:
-            return render.startups(startupsTable = startupsTable, numPages = 0)
+	def GET(self):
+		global searchQuery
+		if searchQuery == "hasnotchangedlolol":
+			startupsTable = config.DB.select('startups').list()
+			if len(startupsTable) > 9:
+				totalnumpages = math.ceil((float(len(startupsTable)) / float(9)))
+				return render.startups(startupsTable = startupsTable, numPages = int(totalnumpages), query = searchQuery)
+			else:
+				return render.startups(startupsTable = startupsTable, numPages = 0, query = searchQuery)
+		else:
+			StartupsTable = config.DB.select('startups').list()
+			newStartupsTable = []
+			for item in StartupsTable:
+				if (searchQuery in str(item.startup_name).lower()) or (searchQuery in str(item.contact_name).lower()) or (searchQuery in str(item.startup_description).lower()):
+					newStartupsTable.append(item)
+			if len(newStartupsTable) > 9:
+				totalnumpages = math.ceil((float(len(newStartupsTable)) / float(9)))
+				return render.startups(startupsTable = newStartupsTable, numPages = int(totalnumpages), query = searchQuery)
+			else:
+				return render.startups(startupsTable = newStartupsTable, numPages = 0, query = searchQuery)
 
 class RequestFunding:
     def GET(self):
