@@ -1,10 +1,21 @@
 
 $var title: About Us
 
-
-
+      <!-- script for the slide panel -->
+      <script>
+             jQuery(function () {
+                jQuery('.showSingle').click(function () {
+                    var index = jQuery(this).parent().index(),
+                        newTarget = jQuery('.targetDiv').eq(index);
+                    jQuery('.targetDiv').not(newTarget).slideUp('fast')
+                    newTarget.delay('fast').slideToggle('fast')
+                    return false;
+                })
+            });
+      </script>
 
       <style> 
+
         body  {
             background-image: url("http://greeknews.eu5.org/images/background/ambient/ambientturquoise.jpg");
         }
@@ -29,10 +40,30 @@ $var title: About Us
           text-align: center;
         }
 
+      
+        /* flip panels */
 
+        .targetDiv {
+          display: none;
+          padding: 50px;
+          font-size: 20;
+        }
+        .targetDiv.first {
+          display: block;
+          padding: 5px;
+        }
 
+        .container .row a {
+          text-decoration: none; 
+        }
 
+        .container .row .col-sm-3 img {
+          height: 25%;
+          width: 100%;
+        }
       </style>
+
+
       <div class="container">
         <div class="jumbotron">
           <div class="content">
@@ -43,6 +74,36 @@ $var title: About Us
 
                       This idea came from....
                   </p>
+
+                  <!-- flip panel using jquery -->
+                  <div class="container">
+                   <div class="row">
+                      <div class="col-sm-3"> 
+                        <a class="showSingle" target="1" id="pauline">Pauline</a>
+                          <div id="div1" class="targetDiv">hi</div>
+                        </div>
+
+                      <div class="col-sm-3"> 
+                        <a class="showSingle" target="2" id="hanson">Hanson</a>
+                          <div id="div2" class="targetDiv">i like cupcakes</div>
+                        </div>
+
+                      <div class="col-sm-3"> 
+                        <a class="showSingle" target="3" id="david">David</a>
+                          <div id="div3" class="targetDiv">i look like glenn from walking dead</div>
+                        </div>
+
+                      <div class="col-sm-3"> 
+                        <a class="showSingle" target="4" id="ash">Ash</a>
+                          <div id="div4" class="targetDiv">
+                              <img src="http://i1-news.softpedia-static.com/images/news2/Woman-Disfigured-in-Chimp-Attack-Gets-4M-Settlement-2.jpg">
+                          </div>
+                        </div>
+                  </div>
+                </div>
+
+
+                
     
                 
           </div>

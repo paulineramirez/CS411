@@ -1,7 +1,14 @@
 
 
 $var title: FAQ
-
+        
+      <script>
+        jQuery(document).ready(function(){
+            jQuery(".flip").click(function(){
+                jQuery(".panel").slideToggle("slow");
+            });
+        });
+      </script>
 
       <style> 
         body  {
@@ -25,8 +32,18 @@ $var title: FAQ
             font-size: 20;
         }
 
+        /*
+        CSS styling for the flip panel
+        */
+        .flip, .panel {
+            text-align: center;
+            padding: 5px;
+        }
 
-
+        .panel {
+            padding: 50px;
+            display: none;
+        }
 
       </style>
 
@@ -42,30 +59,37 @@ $var title: FAQ
                 Frequently Asked Questions
                 </h1>
                 
-                <p class="question"> Why Invest In Startups? </p>
+                <div class="flip">
+                        <p class="question"> Why Invest In Startups? </p>
 
-                    <br> <br>
-                    <p class="info-text">
-                        It shouldn't be to make bundles of risk-free money! This isn't real estate or the stock market. Startups are much riskier. Everyone has their personal motivations for investing in startups, but ours is to support entrepreneurs that we believe in, pursuing a vision we care about, with a good chance of earning a return should that vision transform into reality.
-                    </p>
-                    <br> <br>
+                        <div class="panel">
+                            <p class="info-text">
+                                It shouldn't be to make bundles of risk-free money! This isn't real estate or the stock market. Startups are much riskier. Everyone has their personal motivations for investing in startups, but ours is to support entrepreneurs that we believe in, pursuing a vision we care about, with a good chance of earning a return should that vision transform into reality.
+                            </p>
+                        </div>
+                </div>
+                    
+                <div class="flip">
                     <p class= "question"> Is Start-Up Investing Appropriate For Me?</p>
-                    <br> <br>
-                    <p class = "info-text">
-                        If you can't afford to lose every dollar you invest on Risk-Biscuit, the answer is no. If you can't afford to wait 7+ years for a return, the answer is also no.
-                    </p>
                     
-                    <br> <br>
+                    <div class="panel">
+                        <p class = "info-text">
+                            If you can't afford to lose every dollar you invest on Risk-Biscuit, the answer is no. If you can't afford to wait 7+ years for a return, the answer is also no.
+                        </p>
                     
-                    <p class = "info-text">
-                    You might have a strong belief in the future success of a company. But it's safer to think of your investment more like a lottery ticket that might pay off in the very long term.
-                    </p>
                     
-                     <br> <br>
+                        <p class = "info-text">
+                        You might have a strong belief in the future success of a company. But it's safer to think of your investment more like a lottery ticket that might pay off in the very long term.
+                        </p>
                     
-                    <p class = "info-text">
-                    Unlike the stock market, investment outcomes are much more binary (complete failure or wild success) and there's no stock market that'll allow you to easily re-sell your investment stake to someone else, unless the company is acquired or prepares for an IPO.
-                    </p>
+                    
+                        <p class = "info-text">
+                        Unlike the stock market, investment outcomes are much more binary (complete failure or wild success) and there's no stock market that'll allow you to easily re-sell your investment stake to someone else, unless the company is acquired or prepares for an IPO.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ## END OF FAQ -->
 
             </div>
         </div>
