@@ -27,12 +27,11 @@ vemail = form.regexp(r".*@.*", "Must be a valid email address")
 # the form itself 
 funding_form = form.Form(
     form.Textbox("company_name", description="Enter your company name:", class_="form-group"),
-    form.Textbox("company_desc", description="What does your company do?",class_="form-group"),
     form.Textbox("money", description="How much money does your company need?"),
     form.Textbox("contact_name", description="Contact name:"),
     form.Textbox("contact_email", vemail, description="What is your email?"),
     form.Textbox("contact_phone", description="What is your phone number?"),
-    form.Dropdown("type", \
+    form.Dropdown("Startup Stage", \
         [(1, "early start up/seed"), \
          (2, "early stages"), \
          (3, "expansion"), \
@@ -40,6 +39,7 @@ funding_form = form.Form(
          ]),
     form.Textbox("website", description="Company website:"),
     form.Textbox("startup_twitter", description="Company twitter:"),
+    form.Textarea("company_desc",size="40",maxlength="4000", description="What does your company do?",class_="form-group"),
     form.Button("submit", type="submit", description="Register your company")
     )
 
