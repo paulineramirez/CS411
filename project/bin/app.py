@@ -5,6 +5,7 @@ import json
 import sql
 import MySQLdb
 import config
+import math
 # Pages
 
 urls = (
@@ -19,10 +20,6 @@ app = web.application(urls, globals())
 
 render = web.template.render('templates/', base = 'layout')
 searchQuery = "hasnotchanged"
-
-#David's Code
-#DB = web.database(dbn='mysql', user='mysql_user', pw='mysql_password', db='riskitbiscuit')
-
 
 # Apply for funding form
 vemail = form.regexp(r".*@.*", "Must be a valid email address")
@@ -77,10 +74,12 @@ class About:
 
 class Startups:
     def GET(self):
-        #David's Code
-        startupsTable = config.DB.select('startups').list()#startupsDB is, from the DB object (which is selecting, from the database it's connected to, the table 'startups'), the actual 'startups' table being passed in as an argument to rendering, 
-        return render.startups(startupsTable = startupsTable) #that here, allows the table to be called using python code from the startups HTML template
-        #return render.startups()
+        startupsTable = config.DB.select('startups').list()
+        if len(startupsTable) > 9:
+            totalnumpages = math.ceil((float(len(startupsTable)) / float(9)))
+            return render.startups(startupsTable = startupsTable, numPages = int(totalnumpages))
+        else:
+            return render.startups(startupsTable = startupsTable, numPages = 0)
 
 class RequestFunding:
     def GET(self):

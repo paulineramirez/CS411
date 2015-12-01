@@ -1,14 +1,98 @@
-$def with (startupsTable)
+$def with (startupsTable, numPages)
+
+$def startup_item(name, description, link):
+	<a href = "$link">
+	<div class="col-md-2 panel">
+		<div class="panel-heading">$name</div>
+		<div class="panel-body">$description</div>
+	</div>
+	</a>
+
+$def table_row(tuplist):
+	$if len(tuplist) == 1:
+		<table width="100%">
+			<div>
+				<div class="col-md-5"></div>
+				$:startup_item(tuplist[0][0],tuplist[0][1],tuplist[0][2])
+				<div class="col-md-5"></div>
+			</div>
+		</table>
+	$elif len(tuplist) == 2:
+		<table width="100%">
+			<div>
+				<div class="col-md-3"></div>
+				$:startup_item(tuplist[0][0],tuplist[0][1],tuplist[0][2])
+				<div class="col-md-2"></div>
+				$:startup_item(tuplist[1][0],tuplist[1][1],tuplist[1][2])
+				<div class="col-md-3"></div>
+			</div>
+		</table>
+	$elif len(tuplist) == 3:
+		<table width="100%">
+			<div>
+				<div class="col-md-2"></div>
+				$:startup_item(tuplist[0][0],tuplist[0][1],tuplist[0][2])
+				<div class="col-md-1"></div>
+				$:startup_item(tuplist[1][0],tuplist[1][1],tuplist[1][2])
+				<div class="col-md-1"></div>
+				$:startup_item(tuplist[2][0],tuplist[2][1],tuplist[2][2])
+				<div class="col-md-2"></div>
+			</div>
+		</table>
+
+$def table(portion_Table):
+	$ count = 0
+	$while count < len(portion_Table):
+		$ tuplist = []
+		$for i in range(3):
+			$if count != len(portion_Table):
+				$ index = portion_Table[count]
+				$ tuplist.append((index.startup_name, index.startup_description, index.startup_url))
+				$ count += 1
+			$else:
+				$ break
+		$:table_row(tuplist)
 
 $var title: Startups on our site
 
-	we wil put starutps here or something idk
-	<!--David's Code-->
-	<ul>
-	$for row in startupsTable:
-	
-	<li id ="t$row.startup_id">$row.startup_id</li>
-	<li id ="t$row.startup_id">$row.startup_name</li>
-	</ul>
-	<!---->
+<!--things to take into account: text-align center, relative position, floating?, overflow hidden, making links not turn blue, panel height,
+	and also, can add the color and transparency as style-sheet classes later on-->
+
+<style>
+.cssPagination .pages > .page:target ~ .page:last-child,
+.cssPagination .pages > .page {display: none;}
+.cssPagination .pages > :last-child,
+.cssPagination .pages > .page:target {display: block;}
+</style>
+$if numPages == 0:
+	$:table(startupsTable)
+$else:
+	<div class="cssPagination">
+		<div class="pages">
+			$for i in range(0,(numPages)):
+				$ j = i + 1
+				$ portion = []
+				$if i == (numPages - 1):
+					<div class="page" id="page$j">
+					$ portion = startupsTable[i*9:]
+					$:table(portion)
+					</div>
+					<div class="page" id="page1">
+					$ portion = startupsTable[:9]
+					$:table(portion)
+					</div>
+				$elif i > 0: 
+					<div class="page" id="page$j">
+					$ portion = startupsTable[(i*9):(i*9 + 8)]
+					$:table(portion)
+					</div>
+		</div>
+		<br>
+		<div class="pageNav">
+			$for i in range(numPages):
+				$ x = i + 1
+				<a class="pageNumber" href="#page$x">$x</a>
+		</div> <!-- So, a) will probably need the height of the navbar in relation to the startups listings fixed, and b) will also need to figure out how to do 1 2 3 ... 15 pages, and 
+		c) will probably also have to add filters for results (aka by alphabetical order, most money, most viewed, etc.)-->
+	</div>
 
