@@ -9,7 +9,7 @@ import math
 # Pages
 
 urls = (
-    '/', 'Tweets'
+    '/', 'Bar'
     ,'/search', 'Search'
     ,'/FAQ' ,'FAQ'
     ,'/about','About'
