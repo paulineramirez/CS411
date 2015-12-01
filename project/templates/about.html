@@ -1,65 +1,120 @@
 
 $var title: About Us
 
-<!--    Change the image source '/images/default.jpg' with your favourite image.     -->
-    
-    <div class="cover black" data-color="black"></div>
-     
-<!--   You can change the black color for the filter with those colors: blue, green, red, orange       -->
+      <!-- script for the slide panel -->
+      <script>
+             jQuery(function () {
+                jQuery('.showSingle').click(function () {
+                    var index = jQuery(this).parent().index(),
+                        newTarget = jQuery('.targetDiv').eq(index);
+                    jQuery('.targetDiv').not(newTarget).slideUp('fast')
+                    newTarget.delay('fast').slideToggle('fast')
+                    return false;
+                })
+            });
+      </script>
 
-    <div class="container">
-        <h1 class="logo cursive">
-            ABOUT
-        </h1>
-<!--  H1 can have 2 designs: "logo" and "logo cursive"           -->
-        
-        <div class="content">
-            <h2 class="motto">Our Story<//h2>
-            <div class="subscribe">
-                <br> <br>
-                <h7 class="info-text">
-                    It shouldn't be to make bundles of risk-free money! This isn't real estate or the stock market. Startups are much riskier. Everyone has their personal motivations for investing in startups, but ours is to support entrepreneurs that we believe in, pursuing a vision we care about, with a good chance of earning a return should that vision transform into reality.
-                </h7>
-                <h3 class= "motto" > Is Start-Up Investing Appropriate For Me?<//h3>
-                <br> <br>
-                <h7 class = "info-text";>
-                    
-                    
-                    If you can't afford to lose every dollar you invest on Risk-Biscuit, the answer is no. If you can't afford to wait 7+ years for a return, the answer is also no.
-                </h7>
-                
-                <br> <br>
-                
-                <h7 class = "info-text";>
-                You might have a strong belief in the future success of a company. But it's safer to think of your investment more like a lottery ticket that might pay off in the very long term.
-                </h7>
-                
-                 <br> <br>
-                
-                <h7 class = "info-text";>
-                Unlike the stock market, investment outcomes are much more binary (complete failure or wild success) and there's no stock market that'll allow you to easily re-sell your investment stake to someone else, unless the company is acquired or prepares for an IPO.
-                </h7>
-                
-                    
-       
-                
-                <div class="row">
-                    <div class="col-md-4 col-md-offset-4 col-sm6-6 col-sm-offset-3 ">
-                        <form class="form-inline" role="form">
-                          <div class="form-group">
-                            
-                          </div>
-                         
-                        </form>
+      <style> 
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer">
+        body  {
+            background-image: url("http://greeknews.eu5.org/images/background/ambient/ambientturquoise.jpg");
+        }
+
+        p {
+            text-align: center;
+            font-family: "Helvetica-Light";
+        }
+        .logo-cursive {
+            font-size: 80;
+        }
+
+        .motto {
+            font-size: 40;
+        }
+
+        .info-text {
+            font-size: 20;
+        }
+
+        .content h1 {
+          font-family: "Helvetica-Light";
+          font-size: 60;
+          text-align: center;
+        }
+
+      
+        /* flip panels */
+
+        .targetDiv {
+          display: none;
+          padding: 50px;
+          font-size: 20;
+        }
+        .targetDiv.first {
+          display: block;
+          padding: 5px;
+        }
+
+        .container .row a {
+          text-decoration: none; 
+        }
+
+        .container .row .col-sm-3 img {
+          height: 25%;
+          width: 100%;
+        }
+      </style>
+
+
       <div class="container">
-             Made by Team 1 @ BU - CS 411</a>
+        <div class="jumbotron">
+          <div class="content">
+              <h1>Our Story</h1>
+             <br>
+                  <p class="info-text">
+                      We give everyone the opportunity to invest as little as $100 in startups. We aim to turbo-charge GDP growth and decrease disparity of wealth. The percentage of under 30 year olds owning a private company has fallen from 10.6% in 1989 to 3.6% in 2014. Our goal is to bring it back to 1989 levels within 5 years. We'll democratize investing so that everyone has access to high-growth startups, not just the wealthy and well-connected. We'll also fund more legitimate businesses, from tech startups to local coffee shops.
+
+                      
+                  </p>
+
+                  <br> <br>
+
+                 
+
+                  <!-- flip panel using jquery -->
+                  <div class="container">
+                   <div class="row">
+                      <div class="col-sm-3"> 
+                        <a class="showSingle" target="1" id="pauline">Pauline</a>
+                          <div id="div1" class="targetDiv">hi</div>
+                        </div>
+
+                      <div class="col-sm-3"> 
+                        <a class="showSingle" target="2" id="hanson">Hanson</a>
+                          <div id="div2" class="targetDiv">i like cupcakes</div>
+                        </div>
+
+                      <div class="col-sm-3"> 
+                        <a class="showSingle" target="3" id="david">David</a>
+                          <div id="div3" class="targetDiv">i look like glenn from walking dead</div>
+                        </div>
+
+                      <div class="col-sm-3"> 
+                        <a class="showSingle" target="4" id="ash">Ash</a>
+                          <div id="div4" class="targetDiv">
+                              <img src="http://i1-news.softpedia-static.com/images/news2/Woman-Disfigured-in-Chimp-Attack-Gets-4M-Settlement-2.jpg">
+                          </div>
+                        </div>
+                  </div>
+                </div>
+
+
+                
+    
+                
+          </div>
+        </div>
       </div>
-    </div>
- </div>
+
+             Made by Team 1 @ BU - CS 411
+
