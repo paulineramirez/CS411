@@ -40,6 +40,45 @@ $def with (content)
 		.cssPagination .pages > .page {display: none;}
 		.cssPagination .pages > :last-child,
 		.cssPagination .pages > .page:target {display: block;}
+		ul.pageNav li {
+			display: inline;
+			}
+		ul.pageNav li a {
+			color: black;
+			float: left;
+			padding: 8px 16px;
+			text-decoration: none;
+			border-radius: 5px;
+		}
+		ul.pageNav li a.active {
+			background-color: #4CAF50;
+			color: white;
+			border-radius: 5px;
+		}
+		ul.pageNav li a:hover:not(.active) {background-color: #ddd;}
+		div.wooh {
+			position:relative;
+			display: table;
+			margin: 0 auto;
+		}
+		.sQ {text-align:center;}
+		li.align0{padding:10px 0px 0px 0px;}
+		li.alignright{padding: 5px 120px 5px 0px;}
+		a.short{margin-bottom:0px;
+			margin-top:0px;
+			border-radius: 10px;
+			margin-left: 0px
+			height: 80px;
+			}
+		a.btn{background: #FFEBCD;
+			border-style:solid;
+			border-width:3px;
+			border-color: #FFFACD;
+			padding:0px 0px 3px 0px;}
+		li.align1{padding:18px 10px 0px 60px;
+			margin-bottom:-2px;
+			}
+		li.align2{padding:10px 0px 0px 100px;}
 	</style>
 
 <!-- navigation bar -->
@@ -47,25 +86,23 @@ $def with (content)
   <div class="container-fluid">
     <div>
       <ul class="nav navbar-nav">
-        <li><a href="/">Home</a></li>
-        <li><a href="about">About</a></li>
-        <li><a href="FAQ"> FAQ </a></li>
-        <li><a href="startups">Startups</a></li> 
-        <li>
-<<<<<<< HEAD
-        	<form action ="/" method="POST" id="search">
-					 <input type="text" name="tweets" placeholder="What do you want to search for?" id="textbox">
-				   <input type="submit" class="btn">
-=======
+        <li class="align0"><a href="/">Home</a></li>
+        <li class="align0"><a href="about">About</a></li>
+        <li class="align0"><a href="FAQ"> FAQ </a></li>
+        <li class="align0"><a href="startups">Startups</a></li> 
+		<li></li>
+        <li class="align1">
         	<form action ="/" method="POST">
-					 <input type="text" name="bar" placeholder="What do you want to search for?">
-				   <input type="submit">
->>>>>>> b13e17b848b3254dce57817f20ee7406bd299fcb
+					 <input type="text" name="bar" placeholder="What do you want to search for?" id="textbox">
+				   <input type="submit" value="Find Startups!"class="btn">
 			</form> </li>
+		<li class="align2"><form action ="/" method="POST" id="search">
+					 <input type="text" name="tweets" placeholder="Search for a twitter handle, hashtag, etc." id="textbox">
+				   <input type="submit" value="Search Tweets" class="btn"></li>
       </ul>
 
        <ul class="nav navbar-nav navbar-right">
-        <li><a href="applyforfunding"><span class="glyphicon glyphicon-log-in"></span> Apply for Funding</a></li>
+        <li class="alignright"><a href="applyforfunding" class="btn short btn-xs"><span class="glyphicon glyphicon-log-in"></span><b>   Apply for Funding</b></a></li>
       </ul>
 
     </div>

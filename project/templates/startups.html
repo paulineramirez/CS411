@@ -74,14 +74,27 @@ $var title: Startups on our site
 
 <!--things to take into account: text-align center, relative position, floating?, overflow hidden, making links not turn blue, panel height,
 	and also, can add the color and transparency as style-sheet classes later on-->
+<script> 
+jQuery(document).ready(function(){
+    jQuery('a.pageNumber').click(function(){
+        jQuery('a.pageNumber').removeClass('active');
+        jQuery(this).addClass('active');
+    });
+});
+</script>
 <style></style>
 
+<br><br><br><br><br>
 $if query != "hasnotchangedlolol":
-	<h1>You searched for: $query</h1>
-	<p>Your search returned $len(startupsTable) results.</p>
-	
+	<h3 class="sQ">You searched for:</h2>
+	<h4 class="sQ"><u>$query</u></h3>
+	<p class="sQ">Returned $len(startupsTable) result(s).</p>
+	<br>
+$else:
+	<h3 class="sQ"><u> A List of Boston University Startups! </u></h3>
+	<br><br>
 $if numPages == 0:
-	$:table(startupsTable)
+	$:table(startupsTable, 0)
 $else:
 	<div class="cssPagination">
 		<div class="pages">
@@ -103,12 +116,16 @@ $else:
 					$:table(portion, j)
 					</div>
 		</div>
-		<br>
-		<div class="pageNav">
+		<br><br><div class="wooh">
+		<ul class="pageNav">
 			$for i in range(numPages):
 				$ x = i + 1
-				<a class="pageNumber" href="#page$x">$x</a>
-		</div> <!-- So, a) will probably need the height of the navbar in relation to the startups listings fixed, and 
+				$if x == 1:
+					<li><a class="pageNumber active" href="#page$x">$x</a></li>
+				$else:
+					<li><a class="pageNumber" href="#page$x">$x</a></li>
+		</ul></div>
+		<!-- So, a) will probably need the height of the navbar in relation to the startups listings fixed, and 
 						b) will probably also have to add filters for results (aka by alphabetical order, most money, most viewed, etc.)-->
 	</div>
 	

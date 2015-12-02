@@ -62,10 +62,11 @@ class Bar(object):
 		form = web.input()
 		if form.keys()[0] == "bar":
 			if len(form.bar) == 0:
-				return "Enter a search with something!"
+				return "Error: Enter a search with something!"
 			global searchQuery
 			searchQuery = str(form.bar)
-			raise web.redirect('/startups')
+			urlquery = '/startups?query='+searchQuery
+			raise web.redirect(urlquery)
 
 class Search:
     def GET(self):
@@ -95,14 +96,17 @@ class Startups:
 		else:
 			StartupsTable = config.DB.select('startups').list()
 			newStartupsTable = []
+			passin = searchQuery
 			for item in StartupsTable:
 				if (searchQuery in str(item.startup_name).lower()) or (searchQuery in str(item.contact_name).lower()) or (searchQuery in str(item.startup_description).lower()):
 					newStartupsTable.append(item)
 			if len(newStartupsTable) > 9:
+				searchQuery = "hasnotchangedlolol"
 				totalnumpages = math.ceil((float(len(newStartupsTable)) / float(9)))
-				return render.startups(startupsTable = newStartupsTable, numPages = int(totalnumpages), query = searchQuery)
+				return render.startups(startupsTable = newStartupsTable, numPages = int(totalnumpages), query = passin)
 			else:
-				return render.startups(startupsTable = newStartupsTable, numPages = 0, query = searchQuery)
+				searchQuery = "hasnotchangedlolol"
+				return render.startups(startupsTable = newStartupsTable, numPages = 0, query = passin)
 
 class RequestFunding:
     def GET(self):
