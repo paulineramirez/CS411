@@ -5,6 +5,20 @@ $def with (content)
 
 
 <head>
+
+<style>
+  #search {
+    padding-top: 8px;
+
+  }
+
+  #textbox {
+    width: 400px;
+    padding: 5px;
+  }
+
+</style>
+
 <title>$content.title</title>
 
 <!-- css and js -->
@@ -18,7 +32,7 @@ $def with (content)
   
 
 <!-- navigation bar -->
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div>
       <ul class="nav navbar-nav">
@@ -27,9 +41,9 @@ $def with (content)
         <li><a href="FAQ"> FAQ </a></li>
         <li><a href="startups">Startups</a></li> 
         <li>
-        	<form action ="/" method="POST">
-					 <input type="text" name="tweets" placeholder="What do you want to search for?">
-				   <input type="submit">
+        	<form action ="/" method="POST" id="search">
+					 <input type="text" name="tweets" placeholder="What do you want to search for?" id="textbox">
+				   <input type="submit" class="btn">
 			</form> </li>
       </ul>
 
