@@ -1,12 +1,34 @@
 $def with (startupsTable, numPages, query)
 
-$def startup_item(name, description, link):
-	<a href = "$link">
-	<div class="col-md-2 panel">
-		<div class="panel-heading">$name</div>
-		<div class="panel-body">$description</div>
-	</div>
+$def startup_item(name, description, entire_item):
+	<a href = "#" class="hellofromtheotherside$entire_item.startup_id">
+		<div class="col-md-2 panel">
+			<div class="panel-heading">$name</div>
+			<div class="panel-body">$description</div>
+		</div>
 	</a>
+	<script type="text/javascript">
+		jQuery(document).ready(function() {
+			jQuery('.hellofromtheotherside' + $entire_item.startup_id).click(function(e) {   
+				jQuery('#modal' + $entire_item.startup_id).reveal({               
+					animation: 'fade',              
+					animationspeed: 600,            
+					closeonbackgroundclick: true,   
+					dismissmodalclass: 'close'      
+				});
+			return false;
+			});
+		});
+	</script>
+	<div id="modal$entire_item.startup_id" class="modalwindow">
+		<div id="headingInfo">
+			Just some info about the startup
+		</div>
+		<div id="contentInfo">
+			<p>Startup Name = $entire_item.startup_name</p>
+			<a href="#" class="green close">A button</a>
+		</div>
+	</div>
 
 $def table_row(tuplist):
 	$if len(tuplist) == 1:
@@ -47,7 +69,7 @@ $def table(portion_Table):
 		$for i in range(3):
 			$if count != len(portion_Table):
 				$ index = portion_Table[count]
-				$ tuplist.append((index.startup_name, index.startup_description, index.startup_url))
+				$ tuplist.append((index.startup_name, index.startup_description, index))
 				$ count += 1
 			$else:
 				$ break
@@ -57,13 +79,7 @@ $var title: Startups on our site
 
 <!--things to take into account: text-align center, relative position, floating?, overflow hidden, making links not turn blue, panel height,
 	and also, can add the color and transparency as style-sheet classes later on-->
-
-<style>
-.cssPagination .pages > .page:target ~ .page:last-child,
-.cssPagination .pages > .page {display: none;}
-.cssPagination .pages > :last-child,
-.cssPagination .pages > .page:target {display: block;}
-</style>
+<style></style>
 
 $if query != "hasnotchangedlolol":
 	<h1>You searched for: $query</h1>
@@ -100,4 +116,9 @@ $else:
 		</div> <!-- So, a) will probably need the height of the navbar in relation to the startups listings fixed, and b) will also need to figure out how to do 1 2 3 ... 15 pages, and 
 		c) will probably also have to add filters for results (aka by alphabetical order, most money, most viewed, etc.)-->
 	</div>
-
+	
+	
+	
+	
+	
+	
