@@ -102,7 +102,8 @@ class Startups:
 				totalnumpages = math.ceil((float(len(newStartupsTable)) / float(9)))
 				return render.startups(startupsTable = newStartupsTable, numPages = int(totalnumpages), query = searchQuery)
 			else:
-				return render.startups(startupsTable = newStartupsTable, numPages = 0, query = searchQuery)
+                                tweets = gettweets.getTweets(searchQuery)
+                                return render.startups(startupsTable = newStartupsTable, numPages = 0, query = searchQuery, ts = tweets)
 
 class RequestFunding:
     def GET(self):
