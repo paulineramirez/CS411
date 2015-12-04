@@ -1,4 +1,4 @@
-$def with (startupsTable, numPages, query)
+$def with (startupsTable, numPages, query, sort)
 
 $def startup_item(name, description, entire_item, pageNum):
 	<a href = "#page$pageNum" class="hellofromtheotherside$entire_item.startup_id" data-toggle="modal" data-target="#myModal$entire_item.startup_id">
@@ -19,7 +19,7 @@ $def startup_item(name, description, entire_item, pageNum):
 					<p>Description: $description</p>
 				</div>
 				<div class="modal-footer text-center">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Button</button>
+					<a href="mailto:$entire_item.contact_email?subject=Interested%20Investor%20for%20$name%20Startup" target="_top"><button type="button" class="btn btn-default">Contact This Startup</button></a>
 				</div>
 			</div>
 		</div>
@@ -82,9 +82,9 @@ jQuery(document).ready(function(){
     });
 });
 </script>
-<style></style>
 
 <br><br><br><br><br>
+
 $if query != "hasnotchangedlolol":
 	<h3 class="sQ">You searched for:</h2>
 	<h4 class="sQ"><u>$query</u></h3>
@@ -125,8 +125,13 @@ $else:
 				$else:
 					<li><a class="pageNumber" href="#page$x">$x</a></li>
 		</ul></div>
-		<!-- So, a) will probably need the height of the navbar in relation to the startups listings fixed, and 
-						b) will probably also have to add filters for results (aka by alphabetical order, most money, most viewed, etc.)-->
 	</div>
-	
+
+<br><br><br><br><br>
+<h4 align="middle"><i>Optionally Sort By...</i></h4>
+<!--Other optional filters: most recent, most money, most viewed/popular, etc.-->
+<div class="wooh"><a href="startups?filter=alphabetical"><button type="button" class="btn btn-info">[A-Z] Startup Name</button></a></div>
+
+
+
 	

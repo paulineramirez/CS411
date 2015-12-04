@@ -15,6 +15,7 @@ urls = (
     ,'/about','About'
     ,'/startups','Startups'
     , '/applyforfunding', 'RequestFunding'
+    , '/delete', 'Delete'
     )
 app = web.application(urls, globals())
 
@@ -24,6 +25,7 @@ searchQuery = "hasnotchangedlolol"
 # Apply for funding form
 vemail = form.regexp(r".*@.*", "Must be a valid email address")
 
+delete_form = form.Form(form.Button("Delete All Startups?", type="submit", description="Delete all startups from local database"))
 # the form itself 
 funding_form = form.Form(
     form.Textbox("company_name", description="Enter your company name:", class_="form-group"),
@@ -37,6 +39,42 @@ funding_form = form.Form(
          (3, "expansion"), \
          (4, "later stages") \
          ], description ="What is the stage of your startup"),
+    #form.Checkbox("Academia"),
+    #form.Checkbox("Art"),
+    #form.Checkbox("Beauty"),
+    #form.Checkbox("Business"),
+    #form.Checkbox("Data"),
+    #form.Checkbox("Education"),
+    #form.Checkbox("Fitness"),
+    #form.Checkbox("Food"),
+    #form.Checkbox("Health"),
+    #form.Checkbox("Gaming"),
+    #form.Checkbox("IT"),
+    #form.Checkbox("Marketing"),
+    #form.Checkbox("Music"),
+    #form.Checkbox("Sales"),
+    #form.Checkbox("Shopping"),
+    #form.Checkbox("Travel"),
+    #form.Checkbox("Other"),
+    '''
+    form.Dropdown("category", \
+            [(1, "Academia"),\
+            (2, "Art"),\
+            (3, "Beauty"),\
+            ("business", "Business"),\
+            ("data", "Data"),\
+            ("education", "Education"),\
+            ("fitness", "Fitness"),\
+            ("food", "Food"),\
+            ("health", "Health"),\
+            ("gaming", "Gaming"),\
+            ("IT", "IT"),\
+            ("marketing", "Marketing"),\
+            ("music", "Music"),\
+            ("sales", "Sales"),\
+            ("shopping", "Shopping"),\
+            ("travel", "Travel"),\
+            ("other", "Other")], description = "What industry is your startup in"),'''
     form.Textbox("website", description="Company website:"),
     form.Textbox("startup_twitter", description="Company twitter:"),
     form.Textarea("company_desc",size="40",maxlength="4000", description="What does your company do?",class_="form-group"),
@@ -61,18 +99,24 @@ class Bar(object):
 	def POST(self): 
 		form = web.input()
 		if form.keys()[0] == "bar":
-			if len(form.bar) == 0:
-				return "Error: Enter a search with something!"
-			global searchQuery
-			searchQuery = str(form.bar)
-			urlquery = '/startups?query='+searchQuery
-			raise web.redirect(urlquery)
+                    if len(form.bar) == 0:
+			return "Error: Enter a search with something!"
+                    global searchQuery
+		    searchQuery = str(form.bar)
+		    urlquery = '/startups?query='+searchQuery
+		    raise web.redirect(urlquery)
+                if form.keys()[0] == "tweets":
+                    if len(form.tweets) == 0:
+                        return "Error: Enter a query to search for"
+                    searchQuery = str(form.tweets)
+                    raise web.redirect('/search')
 
 class Search:
     def GET(self):
         global searchQuery    
 
         ts = gettweets.getTweets(searchQuery)
+        print(ts)
         return render.index(ts = ts)
        
 class FAQ:
@@ -86,13 +130,17 @@ class About:
 class Startups:
 	def GET(self):
 		global searchQuery
+		urlstuffs = web.input(filter="default")
+		sortFilter = urlstuffs.filter
 		if searchQuery == "hasnotchangedlolol":
 			startupsTable = config.DB.select('startups').list()
+			if sortFilter == "alphabetical":
+				startupsTable = sorted(startupsTable, key=lambda startup_item: startup_item.startup_name)
 			if len(startupsTable) > 9:
 				totalnumpages = math.ceil((float(len(startupsTable)) / float(9)))
-				return render.startups(startupsTable = startupsTable, numPages = int(totalnumpages), query = searchQuery)
+				return render.startups(startupsTable = startupsTable, numPages = int(totalnumpages), query = searchQuery, sort=sortFilter)
 			else:
-				return render.startups(startupsTable = startupsTable, numPages = 0, query = searchQuery)
+				return render.startups(startupsTable = startupsTable, numPages = 0, query = searchQuery, sort=sortFilter)
 		else:
 			StartupsTable = config.DB.select('startups').list()
 			newStartupsTable = []
@@ -100,13 +148,15 @@ class Startups:
 			for item in StartupsTable:
 				if (searchQuery in str(item.startup_name).lower()) or (searchQuery in str(item.contact_name).lower()) or (searchQuery in str(item.startup_description).lower()):
 					newStartupsTable.append(item)
+			if sortFilter == "alphabetical":
+				newStartupsTable = sorted(newStartupsTable, key=lambda startup_item: startup_item.startup_name)
 			if len(newStartupsTable) > 9:
 				searchQuery = "hasnotchangedlolol"
 				totalnumpages = math.ceil((float(len(newStartupsTable)) / float(9)))
-				return render.startups(startupsTable = newStartupsTable, numPages = int(totalnumpages), query = passin)
+				return render.startups(startupsTable = newStartupsTable, numPages = int(totalnumpages), query = passin, sort=sortFilter)
 			else:
 				searchQuery = "hasnotchangedlolol"
-				return render.startups(startupsTable = newStartupsTable, numPages = 0, query = passin)
+				return render.startups(startupsTable = newStartupsTable, numPages = 0, query = passin, sort=sortFilter)
 
 class RequestFunding:
     def GET(self):
@@ -115,26 +165,40 @@ class RequestFunding:
 
     def POST(self):
         f = funding_form()
+        print(f)
         if f.validates():
             sql.DBConnect(sql.users)
             sql.DBCreate('riskitbiscuit')
             sql.DBCreateTable() 
             
             x = config.DB.select('startups', where="startup_name = "+"'"+f.d.company_name+"'")
-            print(x.list())
 #            except MySQLdb.Error, e:
 #                print("MYSql Error: ",e)
 #                pass
 #            else:
             if len(x) != 0:
                 return render.applyforfunding(f = f, dup = True);
-            config.DB.insert('startups', startup_url=f.d.website, startup_twitter=f.d.startup_twitter,startup_money=f.d.money, startup_name=f.d.company_name,contact_name=f.d.contact_name,contact_email=f.d.contact_email,contact_phone=f.d.contact_phone,startup_stage=f.d.type,startup_description=f.d.company_desc)
+            config.DB.insert('startups', startup_url=f.d.website, startup_twitter=f.d.startup_twitter,startup_money=f.d.money, startup_name=f.d.company_name,contact_name=f.d.contact_name,contact_email=f.d.contact_email,contact_phone=f.d.contact_phone,startup_stage=f.d.type,startup_description=f.d.company_desc,startup_category="f.d.category")
             table =  config.DB.select('startups')  
-      
-            sql.DBclose() 
-            return render.redirect() 
-        
+            print(x)
+            sql.DBclose()
+            #return f.d.type
+            return render.redirect()
+        else:
+                return "Did not validate"
 
+class Delete:
+    def GET(self):
+        d = delete_form
+        return render.delete(d=d)
+
+    def POST(self):
+        d = delete_form
+        if d.validates:
+            sql.DBConnect(sql.users)
+            config.DB.query("truncate startups;")
+            sql.DBclose()
+            return render.redirect(msg = "Emptied database")
 
 if __name__ == "__main__":
     app.run()

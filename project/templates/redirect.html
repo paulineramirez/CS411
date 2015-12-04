@@ -1,7 +1,12 @@
+$def with (msg)
 $var title: Redirecting...
+
+
 <meta http-equiv="refresh" content="3;/"/>
-	
-<h1>Thanks for your submission! Redirecting you to the main page in 3 seconds...</h1>
+$if (msg):
+	$msg
+$else:
+	<h1>Thanks for your submission! Redirecting you to the main page in 3 seconds...</h1>
 
 
 

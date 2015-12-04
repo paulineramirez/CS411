@@ -106,15 +106,19 @@ $def with (content)
         <li class="align0"><a href="about">About</a></li>
         <li class="align0"><a href="FAQ"> FAQ </a></li>
         <li class="align0"><a href="startups">Startups</a></li> 
+		<!--<li class="align0"><a href="delete">Delete</a></li>-->
         <li class="align1">
         	<form action ="/" method="POST">
-					 <input type="text" name="bar" placeholder="What do you want to search for?" id="textbox">
-				   <input type="submit" value="Find Startups!"class="btn">
-    			</form> 
+				<input type="text" name="bar" placeholder="What do you want to search for?" id="textbox">
+				<input type="submit" value="Find Startups!"class="btn">
+    		</form> 
         </li>
-    		<li class="align2"><form action ="/" method="POST" id="search">
-    					 <input type="text" name="tweets" placeholder="Search for a twitter handle, hashtag, trending tweets, etc." id="textbox">
-    				   <input type="submit" value="Search Twitter" class="btn"></li>
+    	<li class="align2">
+			<form action ="/" method="POST" name="tweets" id="search">
+    			<input type="text" name="tweets" placeholder="Search for a twitter handle, hashtag, trending tweets, etc." id="textbox">
+    			<input type="submit" value="Search Twitter" class="btn">
+			</form>
+		</li>
       </ul>
 
        <ul class="nav navbar-nav navbar-right">
