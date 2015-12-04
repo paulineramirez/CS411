@@ -39,23 +39,23 @@ funding_form = form.Form(
          (3, "expansion"), \
          (4, "later stages") \
          ], description ="What is the stage of your startup"),
-    #form.Checkbox("Academia"),
-    #form.Checkbox("Art"),
-    #form.Checkbox("Beauty"),
-    #form.Checkbox("Business"),
-    #form.Checkbox("Data"),
-    #form.Checkbox("Education"),
-    #form.Checkbox("Fitness"),
-    #form.Checkbox("Food"),
-    #form.Checkbox("Health"),
-    #form.Checkbox("Gaming"),
-    #form.Checkbox("IT"),
-    #form.Checkbox("Marketing"),
-    #form.Checkbox("Music"),
-    #form.Checkbox("Sales"),
-    #form.Checkbox("Shopping"),
-    #form.Checkbox("Travel"),
-    #form.Checkbox("Other"),
+    form.Checkbox("Academia"),
+    form.Checkbox("Art"),
+    form.Checkbox("Beauty"),
+    form.Checkbox("Business"),
+    form.Checkbox("Data"),
+    form.Checkbox("Education"),
+    form.Checkbox("Fitness"),
+    form.Checkbox("Food"),
+    form.Checkbox("Health"),
+    form.Checkbox("Gaming"),
+    form.Checkbox("IT"),
+    form.Checkbox("Marketing"),
+    form.Checkbox("Music"),
+    form.Checkbox("Sales"),
+    form.Checkbox("Shopping"),
+    form.Checkbox("Travel"),
+    form.Checkbox("Other"),
 #    form.Dropdown("category", \
 #            [(1, "Academia"),\
 #            (2, "Art"),\
@@ -165,29 +165,26 @@ class RequestFunding:
 
     def POST(self):
         f = funding_form()
-        print(f)
         if f.validates():
             sql.DBConnect(sql.users)
             sql.DBCreate('riskitbiscuit')
             sql.DBCreateTable() 
             
             x = config.DB.select('startups', where="startup_name = "+"'"+f.d.company_name+"'")
+            print(x.list())
 #            except MySQLdb.Error, e:
 #                print("MYSql Error: ",e)
 #                pass
 #            else:
             if len(x) != 0:
                 return render.applyforfunding(f = f, dup = True);
-            config.DB.insert('startups', startup_url=f.d.website, startup_twitter=f.d.startup_twitter,startup_money=f.d.money, startup_name=f.d.company_name,contact_name=f.d.contact_name,contact_email=f.d.contact_email,contact_phone=f.d.contact_phone,startup_stage=f.d.type,startup_description=f.d.company_desc,startup_category="something")
+            config.DB.insert('startups', startup_url=f.d.website, startup_twitter=f.d.startup_twitter,startup_money=f.d.money, startup_name=f.d.company_name,contact_name=f.d.contact_name,contact_email=f.d.contact_email,contact_phone=f.d.contact_phone,startup_stage=f.d.type,startup_description=f.d.company_desc,startup_category=f.d.category)
             table =  config.DB.select('startups')  
       
-            print(x)
             sql.DBclose() 
             #return f.d.type
             return render.redirect() 
 
-        else:
-            return "Did not validate"
 class Delete:
     def GET(self):
         d = delete_form
