@@ -25,7 +25,7 @@ TABLES['startups'] = (
         " contact_name varchar(255) NOT NULL,"
         " contact_email varchar(255) NOT NULL,"
         " contact_phone varchar(255) NOT NULL,"
-        " startup_category varchar(255) NOT NULL,"
+        " startup_category varchar(4095) NOT NULL,"
         " startup_stage INT NOT NULL," 
         " startup_description varchar(4095) NOT NULL)"
         

@@ -25,7 +25,7 @@ searchQuery = "hasnotchangedlolol"
 # Apply for funding form
 vemail = form.regexp(r".*@.*", "Must be a valid email address")
 
-delete_form = form.Form(form.Button("submit", type="submit", description="Delete all startups", id="deletebtn"))
+delete_form = form.Form(form.Button("Delete All Startups?", type="submit", description="Delete all startups from local database"))
 # the form itself 
 funding_form = form.Form(
     form.Textbox("company_name", description="Enter your company name:", class_="form-group"),
@@ -56,24 +56,6 @@ funding_form = form.Form(
     form.Checkbox("Shopping"),
     form.Checkbox("Travel"),
     form.Checkbox("Other"),
-#    form.Dropdown("category", \
-#            [(1, "Academia"),\
-#            (2, "Art"),\
-#            (3, "Beauty"),\
-#            ("business", "Business"),\
-#            ("data", "Data"),\
-#            ("education", "Education"),\
-#            ("fitness", "Fitness"),\
-#            ("food", "Food"),\
-#            ("health", "Health"),\
-#            ("gaming", "Gaming"),\
-#            ("IT", "IT"),\
-#            ("marketing", "Marketing"),\
-#            ("music", "Music"),\
-#            ("sales", "Sales"),\
-#            ("shopping", "Shopping"),\
-#            ("travel", "Travel"),\
-#            ("other", "Other")], description = "What industry is your startup in"),
     form.Textbox("website", description="Company website:"),
     form.Textbox("startup_twitter", description="Company twitter:"),
     form.Textarea("company_desc",size="40",maxlength="4000", description="What does your company do?",class_="form-group"),
@@ -160,6 +142,7 @@ class Startups:
 class RequestFunding:
     def GET(self):
         f = funding_form()
+        print("RENDERING FORM")
         return render.applyforfunding(f = f, dup = False)
 
     def POST(self):
@@ -170,19 +153,27 @@ class RequestFunding:
             sql.DBCreateTable() 
             
             x = config.DB.select('startups', where="startup_name = "+"'"+f.d.company_name+"'")
-            print(x.list())
+            print(x.list(),"current selected entry in db")
+            categories = "Tags: "
+            formdata = web.input()
+            print(formdata)
+            tags = ['Art', 'Beauty', 'Business', 'Data', 'Education','Fitness','Food','Health','Gaming', 'IT', 'Marketing', 'Music', 'Sales', 'Shopping', 'Travel', 'Other']
+            for y in tags:
+                if formdata.has_key(y):
+                    categories = categories + y + ", "
+                    print(categories)
+            categories = categories[:-1]
 #            except MySQLdb.Error, e:
 #                print("MYSql Error: ",e)
 #                pass
 #            else:
             if len(x) != 0:
                 return render.applyforfunding(f = f, dup = True);
-            config.DB.insert('startups', startup_url=f.d.website, startup_twitter=f.d.startup_twitter,startup_money=f.d.money, startup_name=f.d.company_name,contact_name=f.d.contact_name,contact_email=f.d.contact_email,contact_phone=f.d.contact_phone,startup_stage=f.d.type,startup_description=f.d.company_desc,startup_category=f.d.category)
+            config.DB.insert('startups', startup_url=f.d.website, startup_twitter=f.d.startup_twitter,startup_money=f.d.money, startup_name=f.d.company_name,contact_name=f.d.contact_name,contact_email=f.d.contact_email,contact_phone=f.d.contact_phone,startup_stage=f.d.type,startup_description=f.d.company_desc,startup_category=categories)
             table =  config.DB.select('startups')  
-      
-            sql.DBclose() 
-            #return f.d.type
-            return render.redirect() 
+            print(x)
+            sql.DBclose()
+            return render.redirect(msg = False)
 
 class Delete:
     def GET(self):
@@ -190,11 +181,12 @@ class Delete:
         return render.delete(d=d)
 
     def POST(self):
+        d = delete_form
         if d.validates:
             sql.DBConnect(sql.users)
             config.DB.query("truncate startups;")
             sql.DBclose()
-            return render.redirect(msg = "Emptied db")
+            return render.redirect(msg = True)
 
 if __name__ == "__main__":
     app.run()
