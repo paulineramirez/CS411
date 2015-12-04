@@ -15,6 +15,7 @@ urls = (
     ,'/about','About'
     ,'/startups','Startups'
     , '/applyforfunding', 'RequestFunding'
+    , '/delete', 'Delete'
     )
 app = web.application(urls, globals())
 
@@ -24,6 +25,7 @@ searchQuery = "hasnotchangedlolol"
 # Apply for funding form
 vemail = form.regexp(r".*@.*", "Must be a valid email address")
 
+delete_form = form.Form(form.Button("submit", type="submit", description="Register your company", id="deletebtn"))
 # the form itself 
 funding_form = form.Form(
     form.Textbox("company_name", description="Enter your company name:", class_="form-group"),
@@ -87,8 +89,8 @@ class Bar(object):
 			raise web.redirect(urlquery)
                 if form.keys()[0] == "tweets":
                     if len(form.tweets) == 0:
-                        return "Error: Enter a search with something"
-                    global searchQuery
+                        return "Error: Enter a query to search for"
+
                     searchQuery = str(form.tweets)
                     raise web.redirect('/search')
 
@@ -158,9 +160,19 @@ class RequestFunding:
       
             sql.DBclose() 
             return render.redirect() 
-        
 
+class Delete:
+    def GET(self):
+        d = delete_form
+        return render.delete(d=d)
 
+    def POST(self):
+        if d.validates:
+            sql.DBConnect(sql.users)
+            config.DB.query("truncate startups;")
+            sql.DBclose()
+
+            return render.redirect(msg = "Emptied db")
 if __name__ == "__main__":
     app.run()
 
