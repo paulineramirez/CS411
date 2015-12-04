@@ -111,13 +111,17 @@ class About:
 class Startups:
 	def GET(self):
 		global searchQuery
+		urlstuffs = web.input(filter="default")
+		sortFilter = urlstuffs.filter
 		if searchQuery == "hasnotchangedlolol":
 			startupsTable = config.DB.select('startups').list()
+			if sortFilter == "alphabetical":
+				startupsTable = sorted(startupsTable, key=lambda startup_item: startup_item.startup_name)
 			if len(startupsTable) > 9:
 				totalnumpages = math.ceil((float(len(startupsTable)) / float(9)))
-				return render.startups(startupsTable = startupsTable, numPages = int(totalnumpages), query = searchQuery)
+				return render.startups(startupsTable = startupsTable, numPages = int(totalnumpages), query = searchQuery, sort=sortFilter)
 			else:
-				return render.startups(startupsTable = startupsTable, numPages = 0, query = searchQuery)
+				return render.startups(startupsTable = startupsTable, numPages = 0, query = searchQuery, sort=sortFilter)
 		else:
 			StartupsTable = config.DB.select('startups').list()
 			newStartupsTable = []
@@ -125,13 +129,15 @@ class Startups:
 			for item in StartupsTable:
 				if (searchQuery in str(item.startup_name).lower()) or (searchQuery in str(item.contact_name).lower()) or (searchQuery in str(item.startup_description).lower()):
 					newStartupsTable.append(item)
+			if sortFilter == "alphabetical":
+				newStartupsTable = sorted(newStartupsTable, key=lambda startup_item: startup_item.startup_name)
 			if len(newStartupsTable) > 9:
 				searchQuery = "hasnotchangedlolol"
 				totalnumpages = math.ceil((float(len(newStartupsTable)) / float(9)))
-				return render.startups(startupsTable = newStartupsTable, numPages = int(totalnumpages), query = passin)
+				return render.startups(startupsTable = newStartupsTable, numPages = int(totalnumpages), query = passin, sort=sortFilter)
 			else:
 				searchQuery = "hasnotchangedlolol"
-				return render.startups(startupsTable = newStartupsTable, numPages = 0, query = passin)
+				return render.startups(startupsTable = newStartupsTable, numPages = 0, query = passin, sort=sortFilter)
 
 class RequestFunding:
     def GET(self):
