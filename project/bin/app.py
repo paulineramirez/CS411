@@ -25,7 +25,7 @@ searchQuery = "hasnotchangedlolol"
 # Apply for funding form
 vemail = form.regexp(r".*@.*", "Must be a valid email address")
 
-delete_form = form.Form(form.Button("submit", type="submit", description="Delete all startups", id="deletebtn"))
+delete_form = form.Form(form.Button("Delete All Startups?", type="submit", description="Delete all startups from local database"))
 # the form itself 
 funding_form = form.Form(
     form.Textbox("company_name", description="Enter your company name:", class_="form-group"),
@@ -56,24 +56,25 @@ funding_form = form.Form(
     #form.Checkbox("Shopping"),
     #form.Checkbox("Travel"),
     #form.Checkbox("Other"),
-#    form.Dropdown("category", \
-#            [(1, "Academia"),\
-#            (2, "Art"),\
-#            (3, "Beauty"),\
-#            ("business", "Business"),\
-#            ("data", "Data"),\
-#            ("education", "Education"),\
-#            ("fitness", "Fitness"),\
-#            ("food", "Food"),\
-#            ("health", "Health"),\
-#            ("gaming", "Gaming"),\
-#            ("IT", "IT"),\
-#            ("marketing", "Marketing"),\
-#            ("music", "Music"),\
-#            ("sales", "Sales"),\
-#            ("shopping", "Shopping"),\
-#            ("travel", "Travel"),\
-#            ("other", "Other")], description = "What industry is your startup in"),
+    '''
+    form.Dropdown("category", \
+            [(1, "Academia"),\
+            (2, "Art"),\
+            (3, "Beauty"),\
+            ("business", "Business"),\
+            ("data", "Data"),\
+            ("education", "Education"),\
+            ("fitness", "Fitness"),\
+            ("food", "Food"),\
+            ("health", "Health"),\
+            ("gaming", "Gaming"),\
+            ("IT", "IT"),\
+            ("marketing", "Marketing"),\
+            ("music", "Music"),\
+            ("sales", "Sales"),\
+            ("shopping", "Shopping"),\
+            ("travel", "Travel"),\
+            ("other", "Other")], description = "What industry is your startup in"),'''
     form.Textbox("website", description="Company website:"),
     form.Textbox("startup_twitter", description="Company twitter:"),
     form.Textarea("company_desc",size="40",maxlength="4000", description="What does your company do?",class_="form-group"),
@@ -177,27 +178,27 @@ class RequestFunding:
 #            else:
             if len(x) != 0:
                 return render.applyforfunding(f = f, dup = True);
-            config.DB.insert('startups', startup_url=f.d.website, startup_twitter=f.d.startup_twitter,startup_money=f.d.money, startup_name=f.d.company_name,contact_name=f.d.contact_name,contact_email=f.d.contact_email,contact_phone=f.d.contact_phone,startup_stage=f.d.type,startup_description=f.d.company_desc,startup_category="something")
+            config.DB.insert('startups', startup_url=f.d.website, startup_twitter=f.d.startup_twitter,startup_money=f.d.money, startup_name=f.d.company_name,contact_name=f.d.contact_name,contact_email=f.d.contact_email,contact_phone=f.d.contact_phone,startup_stage=f.d.type,startup_description=f.d.company_desc,startup_category="f.d.category")
             table =  config.DB.select('startups')  
-      
             print(x)
-            sql.DBclose() 
+            sql.DBclose()
             #return f.d.type
-            return render.redirect() 
-
+            return render.redirect()
         else:
-            return "Did not validate"
+                return "Did not validate"
+
 class Delete:
     def GET(self):
         d = delete_form
         return render.delete(d=d)
 
     def POST(self):
+        d = delete_form
         if d.validates:
             sql.DBConnect(sql.users)
             config.DB.query("truncate startups;")
             sql.DBclose()
-            return render.redirect(msg = "Emptied db")
+            return render.redirect(msg = "Emptied database")
 
 if __name__ == "__main__":
     app.run()
