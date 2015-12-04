@@ -25,7 +25,7 @@ searchQuery = "hasnotchangedlolol"
 # Apply for funding form
 vemail = form.regexp(r".*@.*", "Must be a valid email address")
 
-delete_form = form.Form(form.Button("submit", type="submit", description="Register your company", id="deletebtn"))
+delete_form = form.Form(form.Button("submit", type="submit", description="Delete all startups", id="deletebtn"))
 # the form itself 
 funding_form = form.Form(
     form.Textbox("company_name", description="Enter your company name:", class_="form-group"),
@@ -98,16 +98,15 @@ class Bar(object):
 	def POST(self): 
 		form = web.input()
 		if form.keys()[0] == "bar":
-			if len(form.bar) == 0:
-				return "Error: Enter a search with something!"
-			global searchQuery
-			searchQuery = str(form.bar)
-			urlquery = '/startups?query='+searchQuery
-			raise web.redirect(urlquery)
+                    if len(form.bar) == 0:
+			return "Error: Enter a search with something!"
+                    global searchQuery
+		    searchQuery = str(form.bar)
+		    urlquery = '/startups?query='+searchQuery
+		    raise web.redirect(urlquery)
                 if form.keys()[0] == "tweets":
                     if len(form.tweets) == 0:
                         return "Error: Enter a query to search for"
-
                     searchQuery = str(form.tweets)
                     raise web.redirect('/search')
 
@@ -198,8 +197,8 @@ class Delete:
             sql.DBConnect(sql.users)
             config.DB.query("truncate startups;")
             sql.DBclose()
-
             return render.redirect(msg = "Emptied db")
+
 if __name__ == "__main__":
     app.run()
 
