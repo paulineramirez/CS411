@@ -1,12 +1,17 @@
 $def with (ts)
 $var title: Search results...
-	
-$if (ts):
+
+
+
+<div id="results">	
+	$if (ts):
 	<h2>Tweets:</h2>
-       	</br>	
+	   	</br>	
 	<ul>
 	$for row in ts:
 	<li>$row</li>	
 	</ul>
-$else:
+	$else:
 	You shouldn't see this
+
+</div>

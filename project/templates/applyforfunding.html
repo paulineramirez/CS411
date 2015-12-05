@@ -1,11 +1,34 @@
 $def with (f, dup)
 
 $var title: Apply for funding on this page.
+<style>
+	.application {
+		width: 700px;	
+		height: auto;
+		margin-right: auto;
+		margin-left: auto;
+		background-color: white;
+		padding: 5px 20px 5px 20px;
+		border-radius: 20px;
+	}
 
-<h1> Register your startup </h1>
-	$if (dup):
-		<h1>Your startup already exists</h1>
-	<form method="POST" role="form">
-		$:f.render()
-	</form>
+	.application h1 {
+		text-align: center;
+	}
+
+	.required:before {
+		content: "*";
+		color: red;	
+	}
+
+</style>
+
+<div class="application">
+	<h1> Register your startup </h1>
+		$if (dup):
+			<h1>Your startup already exists</h1>
+		<form method="POST" role="form">
+			$:f.render()
+		</form>
+</div>
 

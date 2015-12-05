@@ -59,7 +59,7 @@ funding_form = form.Form(
     form.Checkbox("Other"),
     form.Textbox("website", description="Company website:"),
     form.Textbox("startup_twitter", description="Company twitter:"),
-    form.Textarea("company_desc",size="40",maxlength="4000", description="What does your company do?",class_="form-group"),
+    form.Textarea("company_desc",size="60",maxlength="4000", description="What does your company do?",class_="form-group"),
     form.Button("submit", type="submit", description="Register your company")
     )
 
