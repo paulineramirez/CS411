@@ -18,6 +18,10 @@ $def with (content)
     <!--<link rel="stylesheet" href="custom.css">-->
 	<!--startups.html Style Sheet for Pagination Bar -->
 	<style>
+	.inline {
+		display: inline;
+	}
+	
     #search {
       padding-top: 8px;
 
@@ -109,13 +113,13 @@ $def with (content)
 		<!--<li class="align0"><a href="delete">Delete</a></li>-->
         <li class="align1">
         	<form action ="/" method="POST">
-				<input type="text" name="bar" placeholder="What do you want to search for?" id="textbox">
+				<input type="text" name="bar" placeholder="  What startup?" id="textbox">
 				<input type="submit" value="Find Startups!"class="btn">
     		</form> 
         </li>
     	<li class="align2">
 			<form action ="/" method="POST" name="tweets" id="search">
-    			<input type="text" name="tweets" placeholder="Search for a twitter handle, hashtag, trending tweets, etc." id="textbox">
+    			<input type="text" name="tweets" placeholder="  What's trending?" id="textbox">
     			<input type="submit" value="Search Twitter" class="btn">
 			</form>
 		</li>
