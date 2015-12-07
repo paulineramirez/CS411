@@ -156,7 +156,7 @@ $else:
 <br><br><br>
 <h4 align="middle"><i>Optionally Sort By...</i></h4>
 <!--Other optional filters: most recent, most money, most viewed/popular, etc.-->
-$if len(tagL) == 0:
+$if len(tagL) == 0 and query == "hasnotchangedlolol":
 	<div class="wooh"><a href="startups?sort=alphabetical"><button type="button" class="btn btn-info">[A-Z] Startup Name</button></a></div>
 $else:
 	$ urlstring = "query=" + url.query + "&" + "tags=" + url.tags + "&sort=alphabetical"
