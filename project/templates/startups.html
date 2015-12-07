@@ -18,12 +18,35 @@ $def startup_item(name, description, entire_item, tagList, pageNum):
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">$name</h4>
+					<h4 class="modal-title"><b>$name</b></h4>
 				</div>
 				<div class="modal-body">
+				<!-- So I need... name, description, website link, twitter handle, money, contact name, contact email, contact phone, startup stage, and tags -->
 					<p>$description</p>
+					$if entire_item.startup_url.startswith("https://"):
+						<a href = "$entire_item.startup_url"><h5>$entire_item.startup_url</h5></a>
+					$else:
+						<a href = "https://$entire_item.startup_url"><h5>https://$entire_item.startup_url</h5></a>
 					<br>
-					<p><i>$tagString</i></p>
+					<p><b>Stage of Development: </b>
+					$if entire_item.startup_stage == 1:
+						Early Startup/Seeding Stage
+					$if entire_item.startup_stage == 2:
+						Early Stages
+					$if entire_item.startup_stage == 3:
+						Expansion Stage
+					$if entire_item.startup_stage == 4:
+						Later Stages
+					</p>
+					<p><b>How much are we asking for?</b> \$$entire_item.startup_money</p>
+					$if entire_item.startup_twitter[0] != "@":
+						<p><b>Twitter Handle:</b> @$entire_item.startup_twitter</p>
+					$else:
+						<p><b>Twitter Handle:</b> $entire_item.startup_twitter</p>
+					<p><b>Contact: </b><p>
+					<i><p class="contact">$entire_item.contact_name</p><p class="contact">$entire_item.contact_phone</p><p class="contact">$entire_item.contact_email</p></i>
+					<br>
+					<div class="wooh"><p><i>$tagString</i></p></div>
 				</div>
 				<div class="modal-footer text-center">
 					<a href="mailto:$entire_item.contact_email?subject=Interested%20Investor%20for%20$name%20Startup" target="_top"><button type="button" class="btn btn-default">Contact This Startup</button></a>
@@ -92,6 +115,11 @@ jQuery(document).ready(function(){
     });
 });
 </script>
+<style>
+.contact {
+	padding-left:20px;
+}
+</style>
 
 <br><br><br><br><br>
 $ alltags = "(Tags: "
