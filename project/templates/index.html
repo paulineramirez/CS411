@@ -3,7 +3,7 @@ $var title: Search results...
 
 <style>
 	.results {
-		background-color: white;
+		background-color: rgba(255, 255, 255, 0.25);
 		width: 1000px;	
 		height: 100%;
 		margin-right: auto;
@@ -12,10 +12,15 @@ $var title: Search results...
 		border-radius: 20px;
 	}
 
+	.results p {
+		left: 0;
+	}
+
 	.results ul {
-		list-style-type: none;
+		left: 0;
 	}
 </style>
+
 
 <div class="results">
 
@@ -24,7 +29,9 @@ $if (ts):
        	</br>	
 	<ul>
 	$for row in ts:
-	<li>$row</li>	
+
+	<br>
+	<p>$row[1:]</p>	
 	</ul>
 $else:
 	You shouldn't see this
