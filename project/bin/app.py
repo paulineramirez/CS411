@@ -175,7 +175,8 @@ class Startups:
 			passinTags = []
 			sQList = searchQuery.split(" ")
 			for tag in tagList:
-                                passinTags.append(tag)
+                                if tag != unicode("default"):
+                                        passinTags.append(tag)
                         del tagList[:]
 			if searchQuery == "":
                                 for item in StartupsTable:
