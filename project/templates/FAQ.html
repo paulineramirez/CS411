@@ -2,13 +2,6 @@
 
 $var title: FAQ
         
-      <script>
-        jQuery(document).ready(function(){
-            jQuery(".flip").click(function(){
-                jQuery(".panel").slideToggle("slow");
-            });
-        });
-      </script>
 
       <style> 
 
@@ -36,40 +29,34 @@ $var title: FAQ
             font-size: 20;
         }
 
-        /*
-        CSS styling for the flip panel
-        */
-        .flip, .panel {
-            text-align: center;
-            padding: 5px;
-        }
-
-        .panel {
-            padding: 50px;
-            display: none;
-        }
-
         .jumbotron {
             background-color: rgba(255, 255, 255, 0.25);
         }
+
+        .jumbotron a {
+            text-decoration: none; 
+        }
+
+    
       </style>
 
     <div class="container">
         <div class="jumbotron">
                 <h1> Our Frequently Asked Questions </h1>
                 <br>
-                <div class="flip">
+
+                <div class="question">
                     <p class="question"> Why Invest In Startups? </p>
-                    <div class="panel">
+                    
                         <p class="info-text">
                         It shouldn't be to make bundles of risk-free money! This isn't real estate or the stock market. Startups are much riskier. Everyone has their personal motivations for investing in startups, but ours is to support entrepreneurs that we believe in, pursuing a vision we care about, with a good chance of earning a return should that vision transform into reality.
                         </p>
-                    </div>
+                    
                 </div>
                     
-                <div class="flip">
+                <div class="question">
                     <p class= "question"> Is Start-Up Investing Appropriate For Me?</p>
-                    <div class="panel">
+                    
                         <p class = "info-text">
                         If you can't afford to lose every dollar you invest on Risk-Biscuit, the answer is no. If you can't afford to wait 7+ years for a return, the answer is also no.
                         </p>
@@ -81,8 +68,10 @@ $var title: FAQ
                         <p class = "info-text">
                         Unlike the stock market, investment outcomes are much more binary (complete failure or wild success) and there's no stock market that'll allow you to easily re-sell your investment stake to someone else, unless the company is acquired or prepares for an IPO.
                         </p>
-                    </div>
+                    
                 </div>
+
+            
 
                 <!-- ## END OF FAQ -->
 
