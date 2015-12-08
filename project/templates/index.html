@@ -25,14 +25,14 @@ $var title: Search results...
 <div class="results">
 
 $if (ts):
-	<h2>Tweets:</h2>
-       	</br>	
-	<ul>
+	<br>
+	<br>
+	<br>
+	<h3 class="wooh"><u><i>TRENDING TWEETS:</i></u></h3>
 	$for row in ts:
 
 	<br>
-	<p>$row[1:]</p>	
-	</ul>
+	<p><b>$row[1:]</b></p>	
 $else:
 	You shouldn't see this
 
