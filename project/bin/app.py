@@ -63,18 +63,6 @@ funding_form = form.Form(
     form.Button("submit", type="submit", description="Register your company")
     )
 
-'''
-class Tweets(object):
-	def GET(self):
-                return render.main() 
-	def POST(self): 
-		form = web.input()
-		if form.keys()[0] == "tweets":
-			if len(form.tweets) == 0:
-				return "Enter a search > 0 characters"
-			global searchQuery
-			searchQuery = str(form.tweets)
-			raise web.redirect('/search') '''
 class Bar(object):
 	def GET(self):
 		return render.main() 
@@ -100,9 +88,8 @@ class Bar(object):
 class Search:
     def GET(self):
         global searchQuery    
-
         ts = gettweets.getTweets(searchQuery)
-        print(ts)
+        searchQuery = "hasnotchangedlolol"
         return render.index(ts = ts)
        
 class FAQ:
@@ -255,8 +242,7 @@ class RequestFunding:
         if f.validates():
             sql.DBConnect(sql.users)
             sql.DBCreate('riskitbiscuit')
-            sql.DBCreateTable() 
-            
+            sql.DBCreateTable()             
             x = config.DB.select('startups', where="startup_name = "+"'"+f.d.company_name+"'")
             print(x.list(),"current selected entry in db")
             categories = "Tags: "
@@ -268,10 +254,6 @@ class RequestFunding:
                     categories = categories + y + ", "
                     print(categories)
             categories = categories[:-1]
-#            except MySQLdb.Error, e:
-#                print("MYSql Error: ",e)
-#                pass
-#            else:
             if len(x) != 0:
                 return render.applyforfunding(f = f, dup = True);
             config.DB.insert('startups', startup_url=f.d.website, startup_twitter=f.d.startup_twitter,startup_money=f.d.money, startup_name=f.d.company_name,contact_name=f.d.contact_name,contact_email=f.d.contact_email,contact_phone=f.d.contact_phone,startup_stage=f.d.type,startup_description=f.d.company_desc,startup_category=categories)
@@ -300,6 +282,7 @@ if __name__ == "__main__":
 
 
 '''
+JUNK CODE
 tweetarray = []
 counter = 0
 for happy_tweet in ts.search_tweets_iterable(search_order):

@@ -1,6 +1,5 @@
 import MySQLdb
 
-
 users = {
         'user': 'mysql_user',
         'password': 'mysql_password',
@@ -8,13 +7,7 @@ users = {
         'database': 'riskitbiscuit'
         }
 TABLES = {}
-#TABLES['users'] = (
-#        "CREATE TABLE `users` ("
-#        " `user_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,"
-#        " `username` varchar(255) NOT NULL,"
-#        " `password` password(255) NOT NULL)"
 
-#      )
 TABLES['startups'] = (
         "CREATE TABLE startups ("
         " startup_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,"
@@ -74,7 +67,8 @@ def DBCreateTable():
         else:
             print("OK")
     cursor.close()
-
+'''
+JUNK CODE
 def DBInsert(table, data):
     cursor = cnx.cursor()
     cursor.execute(table, data)
@@ -99,3 +93,4 @@ def DBQuery(query, info):
     else:
         print("Successfully queried")
     cursor.close()
+'''
