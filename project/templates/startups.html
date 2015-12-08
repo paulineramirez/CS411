@@ -119,6 +119,10 @@ jQuery(document).ready(function(){
 .contact {
 	padding-left:20px;
 }
+#sorts {
+	float: left;
+	padding-left: 20px;
+}
 </style>
 
 <br><br><br><br><br>
@@ -184,11 +188,16 @@ $else:
 <br><br><br>
 <h4 align="middle"><i>Optionally Sort By...</i></h4>
 <!--Other optional filters: most recent, most money, most viewed/popular, etc.-->
+<div class="wooh">
 $if len(tagL) == 0 and query == "hasnotchangedlolol":
-	<div class="wooh"><a href="startups?sort=alphabetical"><button type="button" class="btn btn-info">[A-Z] Startup Name</button></a></div>
+	<div id="sorts"><a href="startups?sort=alphabetical"><button type="button" class="btn btn-info">[A-Z] Startup Name</button></a></div>
+	<div id="sorts"><a href="startups?sort=startup_stage"><button type="button" class="btn btn-info">Stage of Development</button></a></div>
 $else:
 	$ urlstring = "query=" + url.query + "&" + "tags=" + url.tags + "&sort=alphabetical"
-	<div class="wooh"><a href="startups?$urlstring"><button type="button" class="btn btn-info">[A-Z] Startup Name</button></a></div>
+	<div id="sorts"><a href="startups?$urlstring"><button type="button" class="btn btn-info">[A-Z] Startup Name</button></a></div>
+	$ urlstring2 = "query=" + url.query + "&" + "tags=" + url.tags + "&sort=startup_stage"
+	<div id="sorts"><a href="startups?$urlstring2"><button type="button" class="btn btn-info">Stage of Development</button></a></div>
+</div>
 <br>
 <br>
 <h4 align="middle"><i>Filter Startups By...</i></h4>

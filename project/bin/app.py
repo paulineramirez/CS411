@@ -163,6 +163,8 @@ class Startups:
                                         startupsTable.append(item)
 			if sortFilter == "alphabetical":
 				startupsTable = sorted(startupsTable, key=lambda startup_item: startup_item.startup_name)
+			if sortFilter == "startup_stage":
+				startupsTable = sorted(startupsTable, key=lambda startup_item: startup_item.startup_stage)
 			if len(startupsTable) > 9:
 				totalnumpages = math.ceil((float(len(startupsTable)) / float(9)))
 				return render.startups(startupsTable = startupsTable, numPages = int(totalnumpages), query = searchQuery, sort=sortFilter, tagL = tagList, url = urlstuffs)
@@ -204,6 +206,8 @@ class Startups:
                                         newStartupsTable.append(item)
 			if sortFilter == "alphabetical":
 				newStartupsTable = sorted(newStartupsTable, key=lambda startup_item: startup_item.startup_name)
+			if sortFilter == "startup_stage":
+				newStartupsTable = sorted(newStartupsTable, key=lambda startup_item: startup_item.startup_stage)
 			if len(newStartupsTable) > 9:
 				searchQuery = "hasnotchangedlolol"
 				totalnumpages = math.ceil((float(len(newStartupsTable)) / float(9)))
